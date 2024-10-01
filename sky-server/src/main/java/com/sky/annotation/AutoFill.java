@@ -17,15 +17,9 @@ import java.lang.annotation.Target;
  * @see com.sky.constant.PasswordConstant
  * @see com.sky.enumeration.OperationType
  * @see com.sky.aspect.AutoFillAspect
- * @see com.sky.aspect.AutoFillAspect#fill(Object, OperationType)
- * @see com.sky.aspect.AutoFillAspect#fillCreateTime(Object)
- * @see com.sky.aspect.AutoFillAspect#fillUpdateTime(Object)
- * @see com.sky.aspect.AutoFillAspect#fillCreateUser(Object)
- * @see com.sky.aspect.AutoFillAspect#fillUpdateUser(Object)
- * @see com.sky.aspect.AutoFillAspect#fillStatus(Object)
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AutoFill {
-    OperationType value() default OperationType.UPDATE;
+    OperationType value();
 }
