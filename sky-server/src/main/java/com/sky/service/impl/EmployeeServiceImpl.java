@@ -87,12 +87,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
         // Set create and update time of employee
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        // employee.setCreateTime(LocalDateTime.now());
+        // employee.setUpdateTime(LocalDateTime.now());
 
         // Set create and update user of employee
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        // employee.setCreateUser(BaseContext.getCurrentId());
+        // employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.addEmployee(employee);
     }
@@ -152,10 +152,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         BeanUtils.copyProperties(employeeDTO, employee);
 
         // Set update time of employee
-        employee.setUpdateTime(LocalDateTime.now());
+        // employee.setUpdateTime(LocalDateTime.now());
 
         // Set update user of employee
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        // employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.update(employee);
     }
