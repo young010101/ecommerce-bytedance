@@ -13,13 +13,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 菜品服务实现类
+ * Implementation of DishService for managing dish-related operations.
+ *
+ * @author GPT4o
  */
 @Service
 @Slf4j
 public class DishServiceImpl implements DishService {
+
     @Autowired
     private DishMapper dishMapper;
 
@@ -27,30 +31,35 @@ public class DishServiceImpl implements DishService {
     private DishFlavorMapper dishFlavorMapper;
 
     /**
-     * 添加菜品和对应口味
-     * @param dishDTO 菜品信息
+     * Save a dish along with its associated flavors.
+     * @param dishDTO Data Transfer Object containing dish and flavor details.
      */
-    @Transactional  // 事务注解, 保证数据的原子性
+    @Transactional
     @Override
     public void saveWithFlavor(DishDTO dishDTO) {
+        // Map DTO to Dish entity
         Dish dish = new Dish();
-
         BeanUtils.copyProperties(dishDTO, dish);
 
-        List<DishFlavor> flavors = dishDTO.getFlavors();
-
-        // 判断是否有口味
-        if (flavors != null && !flavors.isEmpty()) {
-            // 向口味表中插入数据
-            for (DishFlavor flavor : flavors) {
-                flavor.setDishId(dish.getId());
-                dishFlavorMapper.insert(flavor);
-            }
-        } else {
-
-        }
-
+        // Save dish to the database
         dishMapper.insert(dish);
+        Long dishId = dish.getId();
 
+        // Map and save associated flavors, if any
+        saveDishFlavors(dishId, dishDTO.getFlavors());
+    }
+
+    /**
+     * Helper method to save dish flavors.
+     * @param dishId The ID of the dish.
+     * @param flavors List of flavors to associate with the dish.
+     */
+    private void saveDishFlavors(Long dishId, List<DishFlavor> flavors) {
+        if (Objects.nonNull(flavors) && !flavors.isEmpty()) {
+            flavors.forEach(flavor -> flavor.setDishId(dishId));
+            dishFlavorMapper.insertBatch(flavors);
+        } else {
+            log.warn("No flavors provided for dish ID: {}", dishId);
+        }
     }
 }
