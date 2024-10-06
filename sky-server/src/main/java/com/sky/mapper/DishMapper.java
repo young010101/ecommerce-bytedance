@@ -1,9 +1,11 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
-import org.apache.ibatis.annotations.Insert;
+import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,6 +13,7 @@ import org.apache.ibatis.annotations.Select;
 public interface DishMapper {
     /**
      * Count the number of dishes in the category.
+     *
      * @param categoryId The category id.
      * @return The number of dishes.
      */
@@ -19,8 +22,17 @@ public interface DishMapper {
 
     /**
      * Insert a dish.
+     *
      * @param dish The dish to insert.
      */
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
+
+    /**
+     * page query
+     *
+     * @param dishPageQueryDTO 分页查询条件
+     * @return 菜品列表
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 }

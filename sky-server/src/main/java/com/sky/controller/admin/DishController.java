@@ -1,16 +1,15 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 菜品管理
@@ -30,10 +29,10 @@ public class DishController {
      *
      * @param dishDTO 菜品信息
      * @return Result
-     * @since 1.0
      * @see DishDTO
      * @see Result
      * @see com.sky.entity.DishFlavor
+     * @since 1.0
      */
     @PostMapping
     @ApiOperation("添加菜品")
@@ -43,5 +42,25 @@ public class DishController {
         dishService.saveWithFlavor(dishDTO);
 
         return Result.success();
+    }
+
+    /**
+     * page query
+     * 分页查询菜品
+     *
+     * @param dishPageQueryDTO 分页查询条件
+     * @return Result
+     * @see DishPageQueryDTO
+     * @see PageResult
+     * @see Result
+     * @see com.sky.entity.Dish
+     * @since 1.0
+     */
+    @GetMapping("/page")
+    @ApiOperation("分页查询菜品")
+    public Result<PageResult> pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+        log.info("分页查询菜品：{}", dishPageQueryDTO);
+        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
+        return Result.success(pageResult);
     }
 }

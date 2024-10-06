@@ -1,11 +1,17 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +38,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * Save a dish along with its associated flavors.
+     *
      * @param dishDTO Data Transfer Object containing dish and flavor details.
      */
     @Transactional
@@ -51,7 +58,8 @@ public class DishServiceImpl implements DishService {
 
     /**
      * Helper method to save dish flavors.
-     * @param dishId The ID of the dish.
+     *
+     * @param dishId  The ID of the dish.
      * @param flavors List of flavors to associate with the dish.
      */
     private void saveDishFlavors(Long dishId, List<DishFlavor> flavors) {
@@ -61,5 +69,26 @@ public class DishServiceImpl implements DishService {
         } else {
             log.warn("No flavors provided for dish ID: {}", dishId);
         }
+    }
+
+    /**
+     * 分页查询菜品
+     *
+     * @param dishPageQueryDTO 分页查询条件
+     * @return PageResult 分页查询结果
+     */
+    @Override
+    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+        // Set up the pagination parameters (page number and page size)
+        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
+
+        // Query the database for dishes that match the criteria in dishPageQueryDTO
+        Page<DishVO> dishes = dishMapper.pageQuery(dishPageQueryDTO);
+
+        // Use PageInfo to get the details of the page result
+        PageInfo<DishVO> pageInfo = new PageInfo<>(dishes);
+
+        // Wrap the result in a PageResult object
+        return new PageResult(pageInfo.getTotal(), pageInfo.getList());
     }
 }
