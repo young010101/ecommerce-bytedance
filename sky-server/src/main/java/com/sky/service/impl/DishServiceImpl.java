@@ -80,13 +80,13 @@ public class DishServiceImpl implements DishService {
     @Override
     public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         // Set up the pagination parameters (page number and page size)
-        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
+        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());  // TODO warning unsolved.
 
         // Query the database for dishes that match the criteria in dishPageQueryDTO
-        Page<DishVO> dishes = dishMapper.pageQuery(dishPageQueryDTO);
+        Page<DishVO> dishes = dishMapper.pageQuery(dishPageQueryDTO);  // 这里用`DishVO`是因为`DishVO`是`Dish`的子类，`DishVO`是`Dish`的视图对象，包含了`Dish`的所有属性，还包含了其他属性，比如`categoryName`，`flavors`等。
 
         // Use PageInfo to get the details of the page result
-        PageInfo<DishVO> pageInfo = new PageInfo<>(dishes);
+        PageInfo<DishVO> pageInfo = new PageInfo<>(dishes);  // Why GPT4o 要在此多此一举？
 
         // Wrap the result in a PageResult object
         return new PageResult(pageInfo.getTotal(), pageInfo.getList());
