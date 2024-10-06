@@ -9,18 +9,20 @@
                 #{updateUser}, #{status})
     </insert>
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
-        select * from dish
+        SELECT d.*, c.name AS categoryName
+        FROM dish d
+        LEFT OUTER JOIN category c ON d.category_id = c.id
         <where>
-            <if test="name != null and name != ''">
-                and name like concat('%', #{name}, '%')
+            <if test="name != null">
+                AND d.name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="categoryId != null">
-                and category_id = #{categoryId}
+                AND d.category_id = #{categoryId}
             </if>
             <if test="status != null">
-                and status = #{status}
+                AND d.status = #{status}
             </if>
         </where>
-        order by create_time desc
+        ORDER BY d.create_time DESC
     </select>
 </mapper>
