@@ -21,6 +21,7 @@ public class OssConfiguration {
     @ConditionalOnMissingBean
     public AliOssUtil aliOssUtil(AliOssProperties aliOssProperties) {
         log.info("AliOssProperties: {}", aliOssProperties);
+        // TODO why not use BeanUtils.copyProperties(aliOssProperties, AliOssUtil.class)?
         return new AliOssUtil(aliOssProperties.getEndpoint(),
                 aliOssProperties.getAccessKeyId(),
                 aliOssProperties.getAccessKeySecret(),
