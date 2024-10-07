@@ -30,7 +30,7 @@ public interface DishService {
      * @param id 菜品id
      * @return DishVO 菜品信息
      */
-    DishVO getById(Long id);
+    DishVO getByIdWithFlavor(Long id);
 
     /**
      * Get flavor by dish id
