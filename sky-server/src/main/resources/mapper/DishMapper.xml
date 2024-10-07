@@ -26,11 +26,4 @@
         </where>
         ORDER BY d.create_time DESC
     </select>
-
-    <select id="getById" resultType="com.sky.vo.DishVO">
-        SELECT d.*, c.name AS categoryName
-        FROM dish d
-                 LEFT OUTER JOIN category c ON d.category_id = c.id
-        WHERE d.id = #{id}
-    </select>
 </mapper>
