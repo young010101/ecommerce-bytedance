@@ -56,4 +56,9 @@ public interface DishMapper {
     // @Delete("delete from dish where id = #{id}")
     // void deleteById(Long id);
     void deleteBatchIds(List<Long> ids);
+
+    /// Update dish.
+    /// 更新菜品
+    /// @param dish The dish to update.
+    void update(Dish dish);
 }

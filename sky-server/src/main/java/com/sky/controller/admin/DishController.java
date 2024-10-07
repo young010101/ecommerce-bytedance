@@ -94,4 +94,18 @@ public class DishController {
         dishService.deleteByIds(ids);
         return Result.success();
     }
+
+    /**
+     * Update dish.
+     *
+     * @param dishDTO The dish information.
+     *                菜品信息
+     */
+    @PutMapping
+    @ApiOperation("更新菜品")
+    public Result<?> update(@RequestBody DishDTO dishDTO) {
+        log.info("更新菜品：{}", dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return Result.success();
+    }
 }

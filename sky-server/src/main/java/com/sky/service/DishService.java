@@ -35,4 +35,9 @@ public interface DishService {
     ///
     /// @param ids The dish ids.
     void deleteByIds(List<Long> ids);
+
+    /// Update dish with flavor.
+    ///
+    /// @param dishDTO The dish dto.
+    void updateWithFlavor(DishDTO dishDTO);
 }
