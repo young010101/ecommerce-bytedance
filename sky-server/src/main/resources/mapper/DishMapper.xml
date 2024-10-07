@@ -9,6 +9,13 @@
                 #{updateUser}, #{status})
     </insert>
 
+    <delete id="deleteBatchIds">
+        DELETE FROM dish WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
         SELECT d.*, c.name AS categoryName
         FROM dish d

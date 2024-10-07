@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 菜品管理
  */
@@ -77,5 +79,19 @@ public class DishController {
         log.info("根据id查询菜品：{}", id);
         DishVO dishVO = dishService.getByIdWithFlavor(id);
         return Result.success(dishVO);
+    }
+
+    /**
+     * Delete dishes by their IDs. Supports batch deletion by providing multiple IDs.
+     *
+     * @param ids List of dish IDs to delete.
+     * @return Response message indicating success or failure.
+     */
+    @DeleteMapping
+    @ApiOperation("根据id删除菜品")
+    public Result<?> deleteByIds(@RequestParam List<Long> ids) {
+        log.info("根据id删除菜品：{}", ids);
+        dishService.deleteByIds(ids);
+        return Result.success();
     }
 }

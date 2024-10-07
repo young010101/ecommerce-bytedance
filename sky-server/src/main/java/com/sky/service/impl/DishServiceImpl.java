@@ -3,12 +3,16 @@ package com.sky.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -35,6 +39,9 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
 
     /**
      * Save a dish along with its associated flavors.
@@ -106,5 +113,31 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(byId, dishVO);
         dishVO.setFlavors(dishFlavorMapper.getByDishId(id));
         return dishVO;
+    }
+
+    /**
+     * Deletes dish records by their IDs. Supports batch deletion by providing multiple IDs.
+     *
+     * @param ids List of dish IDs to delete.
+     */
+    @Transactional
+    @Override
+    public void deleteByIds(List<Long> ids) {
+        for (Long dishId : ids) {
+            Dish byId = dishMapper.getById(dishId);
+            if (byId.getStatus().equals(StatusConstant.ENABLE)) {
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+            }
+
+            if (setmealDishMapper.getByDishId(dishId) > 0) {
+                throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+            }
+        }
+
+        // Delete associated flavors first
+        dishFlavorMapper.deleteByDishIds(ids);
+
+        // Delete dishes in batch
+        dishMapper.deleteBatchIds(ids);
     }
 }

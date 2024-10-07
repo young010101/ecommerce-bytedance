@@ -5,6 +5,8 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
 
+import java.util.List;
+
 public interface DishService {
     /**
      * 添加菜品和口味
@@ -28,4 +30,9 @@ public interface DishService {
      * @return DishVO 菜品信息
      */
     DishVO getByIdWithFlavor(Long id);
+
+    /// Delete dish by ids.
+    ///
+    /// @param ids The dish ids.
+    void deleteByIds(List<Long> ids);
 }
