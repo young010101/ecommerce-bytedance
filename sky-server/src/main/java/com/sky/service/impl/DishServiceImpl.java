@@ -91,4 +91,16 @@ public class DishServiceImpl implements DishService {
         // Wrap the result in a PageResult object
         return new PageResult(pageInfo.getTotal(), pageInfo.getList());
     }
+
+    /**
+     * 根据id查询菜品
+     * Get dish by id.
+     *
+     * @param id 菜品id
+     * @return DishVO 菜品信息
+     */
+    @Override
+    public DishVO getById(Long id) {
+        return dishMapper.getById(id);
+    }
 }
