@@ -1,17 +1,16 @@
 package com.sky.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface SetmealDishMapper {
     /**
-     * Get set meal by id.
+     * Get setmeal ids by dish ids.
      *
-     * @param dishId The set meal id.
-     * @return The set meal.
+     * @param dishIds The dish ids.
+     * @return List<Long> The list of setmeal ids.
      */
-    // TODO change to 黑马 version
-    @Select("SELECT COUNT(id) FROM setmeal_dish WHERE dish_id = #{dishId}")
-    int getByDishId(Long dishId);
+    List<Long> getSetmealIdsByDishIds(List<Long> dishIds);
 }

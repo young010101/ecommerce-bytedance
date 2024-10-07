@@ -128,10 +128,11 @@ public class DishServiceImpl implements DishService {
             if (byId.getStatus().equals(StatusConstant.ENABLE)) {
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
+        }
 
-            if (setmealDishMapper.getByDishId(dishId) > 0) {
-                throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
-            }
+        List<Long> setmealId = setmealDishMapper.getSetmealIdsByDishIds(ids);
+        if (!setmealId.isEmpty()) {
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
 
         // Delete associated flavors first
