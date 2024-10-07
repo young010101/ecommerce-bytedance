@@ -101,7 +101,7 @@ public class DishServiceImpl implements DishService {
      */
     @Override
     public DishVO getByIdWithFlavor(Long id) {
-        DishVO byId = dishMapper.getById(id);
+        DishVO byId = dishMapper.getById(id);  // TODO: 黑马这里返回的是`Dish`对象，而不是`DishVO`对象
         byId.setFlavors(dishFlavorMapper.getByDishId(id));
         return byId;
     }
