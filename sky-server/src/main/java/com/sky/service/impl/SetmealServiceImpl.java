@@ -69,12 +69,14 @@ public class SetmealServiceImpl implements SetmealService {
     @Transactional
     @Override
     public void updateSetmeal(SetmealDTO setmealDTO) {
-        // Map DTO to Setmeal entity
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO, setmeal);
-
-        // Update setmeal in the database
         setmealMapper.update(setmeal);
+
+        setmealDishMapper.deleteBatchByIds(setmealDTO.getId());
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(setmealDTO.getId()));
+        setmealDishMapper.insertBatch(setmealDishes);
     }
 
     /**
