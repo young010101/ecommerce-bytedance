@@ -132,6 +132,9 @@ public class SetmealServiceImpl implements SetmealService {
             }
         }
 
+        // delete setmeal dishes
+        setmealDishMapper.deleteBatchBySetmealIds(ids);
+
         // Delete setmeal records in batch
         setmealMapper.deleteBatchIds(ids);
     }
