@@ -105,8 +105,14 @@ public class SetmealServiceImpl implements SetmealService {
      * @return Setmeal 套餐的详细信息
      */
     @Override
-    public Setmeal getSetmealById(Long id) {
-        return setmealMapper.getById(id);
+    public SetmealVO getSetmealById(Long id) {
+        Setmeal byId = setmealMapper.getById(id);
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(byId, setmealVO);
+
+        setmealVO.setSetmealDishes(setmealDishMapper.getBySetmealId(id));
+
+        return setmealVO;
     }
 
     /**

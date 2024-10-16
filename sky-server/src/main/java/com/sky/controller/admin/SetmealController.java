@@ -7,6 +7,7 @@ import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,8 @@ public class SetmealController {
 
     /**
      * 修改套餐信息
+     * <p>
+     * 依赖根据套餐 ID 查询套餐信息
      *
      * @param setmealDTO 包含套餐详细信息的 DTO 对象
      * @return 操作结果
@@ -110,9 +113,9 @@ public class SetmealController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据ID查询套餐")
-    public Result<Setmeal> getSetmealById(@PathVariable Long id) {
+    public Result<SetmealVO> getSetmealById(@PathVariable Long id) {
         log.info("根据ID查询套餐：id={}", id);
-        Setmeal setmealInfo = setmealService.getSetmealById(id);
+        SetmealVO setmealInfo = setmealService.getSetmealById(id);
         return Result.success(setmealInfo);
     }
 }

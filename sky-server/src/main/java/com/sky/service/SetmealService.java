@@ -3,7 +3,7 @@ package com.sky.service;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
-import com.sky.entity.Setmeal;
+import com.sky.vo.SetmealVO;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public interface SetmealService {
      * @param id 套餐的唯一标识 ID
      * @return Setmeal 套餐的详细信息
      */
-    Setmeal getSetmealById(Long id);
+    SetmealVO getSetmealById(Long id);
 
     /**
      * 批量删除套餐
