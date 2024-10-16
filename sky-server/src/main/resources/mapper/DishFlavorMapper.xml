@@ -8,13 +8,7 @@
             (#{df.dishId}, #{df.name}, #{df.value})
         </foreach>
     </insert>
-    <update id="updateBatch">
-        <foreach collection="flavors" item="df" separator=";">
-            UPDATE dish_flavor
-            SET name = #{df.name}, value = #{df.value}
-            WHERE dish_id = #{df.dishId}
-        </foreach>
-    </update>
+
     <!-- TODO 只有一条也能这么写么？ -->
     <delete id="deleteBatchByDishIds">
         DELETE FROM dish_flavor WHERE dish_id IN

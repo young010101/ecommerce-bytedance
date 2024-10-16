@@ -157,7 +157,8 @@ public class DishServiceImpl implements DishService {
 
         dishFlavorMapper.deleteByDishId(dishDTO.getId());
         List<DishFlavor> flavors = dishDTO.getFlavors();
-        dishFlavorMapper.updateBatch(flavors);
+        flavors.forEach(flavor -> flavor.setDishId(dishDTO.getId()));
+        dishFlavorMapper.insertBatch(flavors);
     }
 
     /// Enable or disable dish.

@@ -34,8 +34,4 @@ public interface DishFlavorMapper {
     void deleteByDishId(Long dishId);
 
     void deleteBatchByDishIds(List<Long> dishIds);
-
-    /// Update batch.
-    /// @param flavors The flavors.
-    void updateBatch(List<DishFlavor> flavors);
 }
