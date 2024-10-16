@@ -24,13 +24,6 @@
         </foreach>
     </insert>
 
-    <delete id="deleteBatchByIds">
-        DELETE FROM setmeal WHERE id IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
-
     <select id="pageQuery" resultType="com.sky.entity.Setmeal">
         SELECT s.*, c.name AS categoryName
         FROM setmeal s
