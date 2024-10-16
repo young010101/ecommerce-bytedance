@@ -2,7 +2,6 @@ package com.sky.controller.admin;
 
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
-import com.sky.entity.Setmeal;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -29,8 +28,6 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
 
-    @Autowired  // TODO
-    private DishService dishService;
 
     /**
      * 修改套餐信息
@@ -66,7 +63,7 @@ public class SetmealController {
      * 设置套餐的起售或停售状态
      *
      * @param status 套餐状态（1：起售，0：停售）
-     * @param id 套餐的唯一标识 ID
+     * @param id     套餐的唯一标识 ID
      * @return 操作结果
      */
     @PostMapping("/status/{status}")
