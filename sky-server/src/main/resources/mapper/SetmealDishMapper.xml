@@ -6,7 +6,7 @@
         SELECT setmeal_id
         FROM setmeal_dish
         WHERE dish_id IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
+        <foreach item="dishId" collection="dishIds" open="(" separator="," close=")">
             #{dishId}
         </foreach>
     </select>

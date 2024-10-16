@@ -136,7 +136,10 @@ public class DishServiceImpl implements DishService {
         }
 
         // Delete associated flavors first
-        dishFlavorMapper.deleteByDishIds(ids);
+//        for (Long id : ids) {
+//            dishFlavorMapper.deleteByDishId(id);
+//        }
+        dishFlavorMapper.deleteBatchByDishIds(ids);
 
         // Delete dishes in batch
         dishMapper.deleteBatchIds(ids);
@@ -150,8 +153,10 @@ public class DishServiceImpl implements DishService {
     public void updateWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
-        List<DishFlavor> flavors = dishDTO.getFlavors();
         dishMapper.update(dish);
+
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+        List<DishFlavor> flavors = dishDTO.getFlavors();
         dishFlavorMapper.updateBatch(flavors);
     }
 

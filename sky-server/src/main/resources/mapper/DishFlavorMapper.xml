@@ -16,10 +16,10 @@
         </foreach>
     </update>
     <!-- TODO 只有一条也能这么写么？ -->
-    <delete id="deleteByDishIds">
+    <delete id="deleteBatchByDishIds">
         DELETE FROM dish_flavor WHERE dish_id IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
-            #{id}
+        <foreach item="dishId" collection="dishIds" open="(" separator="," close=")">
+            #{dishId}
         </foreach>
     </delete>
 </mapper>
