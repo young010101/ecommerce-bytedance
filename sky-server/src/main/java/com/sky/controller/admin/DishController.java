@@ -108,4 +108,26 @@ public class DishController {
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
     }
+
+    /**
+     * Updates the status of a dish to either enable or disable its sale.
+     * <p>
+     * This method handles a POST request to update the status of a dish identified by its ID.
+     * The status parameter indicates whether the dish should be enabled (1) or disabled (0).
+     *
+     * @param id The ID of the dish to update.
+     * @param status The new status for the dish (1 for enabled, 0 for disabled).
+     * @return A Result object indicating the success of the operation.
+     */
+    @PostMapping("/status/{status}")  // Post instead of Put
+    @ApiOperation("菜品起售、停售")
+    public Result<?> updateStatus(@RequestParam Long id, @PathVariable Integer status) {
+        // Log the operation with the dish ID and the new status
+        log.info("菜品起售、停售：id={}, status={}", id, status);
+        // Call the dishService to enable or disable the status of the dish
+        dishService.enableOrDisableStatus(id, status);
+        // Return a success result
+        return Result.success();
+    }
+
 }

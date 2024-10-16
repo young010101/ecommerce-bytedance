@@ -40,4 +40,8 @@ public interface DishService {
     ///
     /// @param dishDTO The dish dto.
     void updateWithFlavor(DishDTO dishDTO);
+
+    /// Enable or disable dish.
+    /// @param id The dish id.
+    void enableOrDisableStatus(Long id, Integer status);
 }
