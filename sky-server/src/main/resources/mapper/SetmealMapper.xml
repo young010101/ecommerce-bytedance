@@ -41,6 +41,14 @@
         WHERE id = #{id}
     </update>
 
+    <delete id="deleteBatchIds">
+        DELETE FROM setmeal
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="pageQuery" resultType="com.sky.vo.SetmealVO">
         SELECT s.*, c.name AS categoryName
         FROM setmeal s
