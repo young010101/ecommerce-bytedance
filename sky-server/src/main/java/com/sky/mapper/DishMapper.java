@@ -61,4 +61,6 @@ public interface DishMapper {
     /// 更新菜品
     /// @param dish The dish to update.
     void update(Dish dish);
+
+    List<Dish> list(Dish categoryId);
 }

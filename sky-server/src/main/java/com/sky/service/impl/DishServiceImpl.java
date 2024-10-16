@@ -156,10 +156,18 @@ public class DishServiceImpl implements DishService {
     }
 
     /// Enable or disable dish.
+    ///
     /// @param id The dish id.
     @Override
     public void enableOrDisableStatus(Long id, Integer status) {
         Dish dish = Dish.builder().id(id).status(status).build();
         dishMapper.update(dish);
+    }
+
+
+    @Override
+    public List<Dish> listByCategoryId(Long categoryId) {
+        Dish dish = Dish.builder().categoryId(categoryId).status(StatusConstant.ENABLE).build();
+        return dishMapper.list(dish);
     }
 }
