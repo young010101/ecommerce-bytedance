@@ -43,7 +43,7 @@ public interface CategoryMapper {
      * @return The category list.
      */
 //    @Select("SELECT * FROM category WHERE type = #{type}")
-    List<Category> listByType(int type);
+    List<Category> listByType(Integer type);
 
     /**
      * Delete category by id.

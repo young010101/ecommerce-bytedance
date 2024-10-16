@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 分类管理
+ */
 @RestController
 @RequestMapping("/admin/category")
 @Slf4j
@@ -79,7 +82,7 @@ public class CategoryController {
      */
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
-    public Result<List<Category>> listByType(int type) {
+    public Result<List<Category>> listByType(Integer type) {
         log.info("根据类型查询分类：type={}", type);
         return Result.success(categoryService.listByType(type));
     }

@@ -39,7 +39,7 @@ public interface CategoryService {
      * @param type The category type.
      * @return The category list.
      */
-    List<Category> listByType(int type);
+    List<Category> listByType(Integer type);
 
     /**
      * Delete category by id.
