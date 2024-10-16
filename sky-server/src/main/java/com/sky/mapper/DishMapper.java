@@ -60,6 +60,7 @@ public interface DishMapper {
     /// Update dish.
     /// 更新菜品
     /// @param dish The dish to update.
+    @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
 
     List<Dish> list(Dish categoryId);
