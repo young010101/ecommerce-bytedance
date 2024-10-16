@@ -14,6 +14,7 @@ import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Implementation of SetmealService for managing setmeal-related operations.
@@ -89,10 +89,10 @@ public class SetmealServiceImpl implements SetmealService {
         PageHelper.startPage(setmealPageQueryDTO.getPage(), setmealPageQueryDTO.getPageSize());
 
         // Query the database for setmeals that match the criteria
-        Page<Setmeal> setmeals = setmealMapper.pageQuery(setmealPageQueryDTO);
+        Page<SetmealVO> setmeals = setmealMapper.pageQuery(setmealPageQueryDTO);
 
         // Use PageInfo to get the details of the page result
-        PageInfo<Setmeal> pageInfo = new PageInfo<>(setmeals);
+        PageInfo<SetmealVO> pageInfo = new PageInfo<>(setmeals);
 
         // Wrap the result in a PageResult object
         return new PageResult(pageInfo.getTotal(), pageInfo.getList());
