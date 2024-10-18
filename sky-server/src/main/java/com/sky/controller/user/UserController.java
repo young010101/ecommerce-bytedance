@@ -44,8 +44,8 @@ public class UserController {
         claim.put(JwtClaimsConstant.USER_ID, user.getId());
 
         String token = JwtUtil.createJWT(
-                jwtProperties.getAdminSecretKey(),
-                jwtProperties.getAdminTtl(),
+                jwtProperties.getUserSecretKey(),
+                jwtProperties.getUserTtl(),
                 claim);
 
         UserLoginVO userLoginVO = UserLoginVO.builder()
