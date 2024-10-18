@@ -14,6 +14,7 @@ import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -54,7 +55,7 @@ public class SetmealServiceImpl implements SetmealService {
         // TODO 这里又忘记添加后要返回id
         Long setmealId = setmeal.getId();
 
-        List<SetmealDish>  setmealDishes = setmealDTO.getSetmealDishes();
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
 
         setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(setmealId));
 
@@ -149,5 +150,20 @@ public class SetmealServiceImpl implements SetmealService {
     public void enableOrDisableSetmeal(Integer status, Long id) {
         Setmeal setmeal = Setmeal.builder().id(id).status(status).build();
         setmealMapper.update(setmeal);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param setmeal
+     * @return
+     */
+    public List<Setmeal> list(Setmeal setmeal) {
+        return setmealMapper.list(setmeal);
+    }
+
+    @Override
+    public List<DishItemVO> getDishItemById(Long id) {
+        return setmealMapper.getDishItemBySetmealId(id);
     }
 }

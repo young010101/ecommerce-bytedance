@@ -43,14 +43,23 @@ public interface DishService {
     void updateWithFlavor(DishDTO dishDTO);
 
     /// Enable or disable dish.
+    ///
     /// @param id The dish id.
     void enableOrDisableStatus(Long id, Integer status);
 
-        /**
+    /**
      * 根据分类id查询菜品列表
      *
      * @param categoryId 分类id
      * @return 菜品列表
      */
     List<Dish> listByCategoryId(Long categoryId);
+
+    /**
+     * 条件查询菜品和口味
+     *
+     * @param dish 菜品对象
+     * @return 菜品列表 with flavor. Why object to list?
+     */
+    List<DishVO> listWithFlavor(Dish dish);
 }
