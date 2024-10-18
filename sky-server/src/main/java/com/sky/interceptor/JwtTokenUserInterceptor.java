@@ -27,11 +27,11 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
     /**
      * 校验jwt
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @return
-     * @throws Exception
+     * @param request  请求
+     * @param response 响应
+     * @param handler   被拦截的目标对象，即方法
+     * @return boolean
+     * @throws Exception TODO
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
