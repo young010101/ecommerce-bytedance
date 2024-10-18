@@ -37,7 +37,7 @@ public class UserController {
     public Result<UserLoginVO> login(
             @ApiParam(value = "用户授权码", required = true) @RequestBody UserLoginDTO userLoginDTO) {
         log.info("用户登录请求：{}", userLoginDTO);
-        User user = userService.login(userLoginDTO);
+        User user = userService.wxLogin(userLoginDTO);
 
         // 登录成功后，生成jwt令牌
         Map<String, Object> claim = new HashMap<>();

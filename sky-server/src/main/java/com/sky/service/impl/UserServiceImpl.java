@@ -1,8 +1,10 @@
 package com.sky.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sky.constant.MessageConstant;
 import com.sky.dto.UserLoginDTO;
 import com.sky.entity.User;
+import com.sky.exception.LoginFailedException;
 import com.sky.mapper.UserMapper;
 import com.sky.properties.WeChatProperties;
 import com.sky.service.UserService;
@@ -10,13 +12,14 @@ import com.sky.utils.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String BASE_URL = "https://api.weixin.qq.com/sns/jscode2session";
+    private static final String WX_LOGIN_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
     @Autowired
     private UserMapper userMapper;
@@ -24,33 +27,38 @@ public class UserServiceImpl implements UserService {
     private WeChatProperties weChatProperties;
 
     @Override
-    public User login(UserLoginDTO userLoginDTO) {
+    public User wxLogin(UserLoginDTO userLoginDTO) {
 
-        Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("appid", weChatProperties.getAppid());
-        paramMap.put("secret", weChatProperties.getSecret());
+        String openid = getOpenid(userLoginDTO.getCode());
 
-        String code = userLoginDTO.getCode();
-        paramMap.put("js_code", code);
-        paramMap.put("grant_type", "authorization_code");
-
-        // Call the doGet method
-        String result = HttpClientUtil.doGet(BASE_URL, paramMap);
-        // Parse the result json
-        JSONObject jsonObject = JSONObject.parseObject(result);
-        String openid = jsonObject.getString("openid");
+        if (openid == null) {
+            throw new LoginFailedException(MessageConstant.LOGIN_FAILED);
+        }
 
         // check if user exists. if not, insert into database
         User user = userMapper.getByOpenid(openid);
         if (user == null) {
-            user = new User();
-            user.setOpenid(openid);
+            user = User.builder().openid(openid).createTime(LocalDateTime.now()).build();
             userMapper.insert(user);
         }
 
 //            BeanUtils.copyProperties(user, userLoginVO);
 
-        return User.builder().id(user.getId()).openid(user.getOpenid()).build();
+        return user;
+    }
+
+    private String getOpenid(String code) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("appid", weChatProperties.getAppid());
+        paramMap.put("secret", weChatProperties.getSecret());
+        paramMap.put("js_code", code);
+        paramMap.put("grant_type", "authorization_code");
+
+        // Call the doGet method
+        String result = HttpClientUtil.doGet(WX_LOGIN_URL, paramMap);
+        // Parse the result json
+        JSONObject jsonObject = JSONObject.parseObject(result);
+        return jsonObject.getString("openid");
     }
 
     @Override
