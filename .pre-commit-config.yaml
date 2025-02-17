@@ -13,3 +13,8 @@ repos:
         entry: mvn checkstyle:check
         language: system
         pass_filenames: false
+      - id: maven-tests
+        name: Run Tests
+        entry: mvn test
+        language: system
+        pass_filenames: false
