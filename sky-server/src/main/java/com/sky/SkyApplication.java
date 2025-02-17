@@ -6,10 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableTransactionManagement //开启注解方式的事务管理
+@EnableTransactionManagement // 开启注解方式的事务管理
 @Slf4j
 public class SkyApplication {
-    public static void main(String[] args) {
+
+    /**
+     * Main entry point for the Sky application.
+     *
+     * @param args command line arguments
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(SkyApplication.class, args);
         log.info("server started");
     }
