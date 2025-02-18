@@ -14,6 +14,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build and test with Maven
+        env:
+          SPRING_PROFILES_ACTIVE: ci
         run: mvn clean test
       - name: Archive JaCoCo Report
         uses: actions/upload-artifact@v4.6.0
