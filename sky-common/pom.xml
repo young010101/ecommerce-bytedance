@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sky-take-out</artifactId>
         <groupId>com.sky</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sky-common</artifactId>
@@ -58,6 +58,17 @@
                 <configuration>
                     <excludes>
                         **/
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.26.0</version>
+                <configuration>
+                    <excludes>
+                        <!-- 或者排除整个包 -->
+                        <exclude>**/*.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

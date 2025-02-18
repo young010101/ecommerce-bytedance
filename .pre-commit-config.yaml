@@ -13,3 +13,13 @@ repos:
         entry: mvn checkstyle:check
         language: system
         pass_filenames: false
+      - id: pmd
+        name: PMD
+        entry: mvn pmd:check
+        language: system
+        pass_filenames: false
+      - id: maven-spotless
+        name: Maven Spotless
+        entry: mvn spotless:check
+        language: system
+        pass_filenames: false
