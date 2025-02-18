@@ -56,7 +56,7 @@ jobs:
         run: |
           mvn clean test
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@327cd5a69de6c009b9ce71bce8395f28e651bf99
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -67,7 +67,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
         with:
           context: .
           push: true
