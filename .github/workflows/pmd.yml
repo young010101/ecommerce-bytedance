@@ -22,7 +22,7 @@ jobs:
       - name: Build with Maven
         env:
           SPRING_PROFILES_ACTIVE: ci
-        run: mvn -B package --file pom.xml
+        run: mvn clean install --batch-mode
 
       - name: Run PMD
         run: mvn pmd:check
