@@ -20,6 +20,8 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
+        env:
+          SPRING_PROFILES_ACTIVE: ci
         run: mvn -B package --file pom.xml
 
       - name: Run PMD
