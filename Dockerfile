@@ -1,5 +1,5 @@
 # 第一阶段：构建应用
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.9.9-amazoncorretto-17 AS build
 WORKDIR /app
 
 # 复制 pom.xml 并预先下载依赖，利用缓存加速构建
