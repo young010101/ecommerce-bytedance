@@ -9,8 +9,10 @@ import java.lang.annotation.Target;
 
 /**
  * 自动填充注解，用于自动填充公共字段，如创建时间、更新时间、创建人、更新人等.
- * 默认操作类型为更新操作.
- * 如果是插入操作，需要在注解中指定操作类型为插入操作.
+ * The default operation type is update operation.
+ * If the operation type is insert operation, it needs to be specified in the
+ * annotation.
+ *
  * @see OperationType
  * @see com.sky.constant.AutoFillConstant
  * @see com.sky.constant.StatusConstant
@@ -21,5 +23,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AutoFill {
+    /**
+     * Returns the operation type for auto-filling.
+     *
+     * @return the OperationType enum value
+     */
     OperationType value();
 }

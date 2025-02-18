@@ -10,26 +10,29 @@ import com.sky.vo.SetmealVO;
 import java.util.List;
 
 /**
- * 套餐服务接口
- * 该接口定义了与套餐管理相关的所有业务方法，如新增套餐、修改套餐、删除套餐、分页查询套餐等。
+ * The interface for the setmeal service.
+ * This interface defines all the business methods related to setmeal
+ * management,
+ * such as adding a new setmeal, updating a setmeal, deleting a setmeal,
+ * and querying setmeals with pagination.
  */
 public interface SetmealService {
     /**
-     * 新增套餐
+     * Saves a new setmeal with its dishes.
      *
-     * @param setmealDTO 包含新增套餐详细信息的 DTO 对象
+     * @param setmealDTO the setmeal data transfer object
      */
     void saveWithDish(SetmealDTO setmealDTO);
 
     /**
-     * 修改套餐信息
+     * Retrieves setmeal information by page.
      *
      * @param setmealDTO 包含修改后的套餐详细信息的 DTO 对象
      */
     void updateSetmeal(SetmealDTO setmealDTO);
 
     /**
-     * 分页查询套餐列表
+     * Retrieves setmeal information by id.
      *
      * @param setmealPageQueryDTO 分页查询条件 DTO 对象
      * @return PageResult 分页查询结果，包含套餐列表
@@ -37,41 +40,41 @@ public interface SetmealService {
     PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 
     /**
-     * 根据 ID 查询套餐详细信息
+     * Retrieves the setmeal information by id.
      *
-     * @param id 套餐的唯一标识 ID
-     * @return Setmeal 套餐的详细信息
+     * @param id the setmeal id
+     * @return the setmeal data transfer object
      */
     SetmealVO getSetmealById(Long id);
 
     /**
-     * 批量删除套餐
+     * Deletes the setmeals by ids.
      *
-     * @param ids 套餐 ID 列表
+     * @param ids the setmeal ids
      */
     void deleteSetmeals(List<Long> ids);
 
     /**
-     * 设置套餐的起售或停售状态
+     * Enables or disables the status of a setmeal.
      *
-     * @param id     套餐的唯一标识 ID
-     * @param status 套餐状态（1：起售，0：停售）
+     * @param id     the setmeal id
+     * @param status the setmeal status (1: enabled, 0: disabled)
      */
     void enableOrDisableSetmeal(Integer status, Long id);
 
     /**
-     * 条件查询
+     * Retrieves a list of setmeals by condition.
      *
-     * @param setmeal ? 套餐对象，包含查询条件
-     * @return List<Setmeal> 符合条件的套餐列表
+     * @param setmeal the setmeal object
+     * @return the list of setmeals
      */
     List<Setmeal> list(Setmeal setmeal);
 
     /**
-     * 根据id查询菜品选项
+     * Retrieves a list of dish items by id.
      *
-     * @param id
-     * @return
+     * @param id the dish id
+     * @return the list of dish items
      */
     List<DishItemVO> getDishItemById(Long id);
 }

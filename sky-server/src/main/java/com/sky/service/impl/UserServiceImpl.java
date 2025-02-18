@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             userMapper.insert(user);
         }
 
-//            BeanUtils.copyProperties(user, userLoginVO);
+        // BeanUtils.copyProperties(user, userLoginVO);
 
         return user;
     }
@@ -63,12 +63,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-//        // Get the current user
-//        User user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        // Invalidate the user's session
-//        SecurityContextHolder.getContext().setAuthentication(null);
-//        // Log the user out
-//        log.info("User {} has logged out", user.getUsername())
+        // // Get the current user
+        // User user =
+        // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // // Invalidate the user's session
+        // SecurityContextHolder.getContext().setAuthentication(null);
+        // // Log the user out
+        // log.info("User {} has logged out", user.getUsername())
     }
 
 }

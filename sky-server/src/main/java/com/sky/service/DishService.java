@@ -10,56 +10,63 @@ import java.util.List;
 
 public interface DishService {
     /**
-     * 添加菜品和口味
+     * Saves a new dish with its flavors.
      *
-     * @param dishDTO 菜品信息
+     * @param dishDTO the dish data transfer object
      */
     void saveWithFlavor(DishDTO dishDTO);
 
     /**
-     * 分页查询菜品
+     * Retrieves dish information by page.
      *
-     * @param dishPageQueryDTO 分页查询条件
-     * @return PageResult 分页查询结果
+     * @param dishPageQueryDTO the query parameters for pagination
+     * @return page result containing dish information
      */
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     /**
-     * 根据id查询菜品
+     * Retrieves dish information by id.
      *
-     * @param id 菜品id
-     * @return DishVO 菜品信息
+     * @param id the dish id
+     * @return the dish data transfer object
      */
     DishVO getByIdWithFlavor(Long id);
 
-    /// Delete dish by ids.
-    ///
-    /// @param ids The dish ids.
+    /**
+     * Deletes dishes by ids.
+     *
+     * @param ids the dish ids
+     */
     void deleteByIds(List<Long> ids);
 
-    /// Update dish with flavor.
-    ///
-    /// @param dishDTO The dish dto.
+    /**
+     * Updates a dish with its flavors.
+     *
+     * @param dishDTO the dish data transfer object
+     */
     void updateWithFlavor(DishDTO dishDTO);
 
-    /// Enable or disable dish.
-    ///
-    /// @param id The dish id.
+    /**
+     * Enables or disables the status of a dish.
+     *
+     * @param id     the dish id
+     * @param status the status
+     */
     void enableOrDisableStatus(Long id, Integer status);
 
     /**
-     * 根据分类id查询菜品列表
+     * Retrieves a list of dishes by category id.
      *
-     * @param categoryId 分类id
-     * @return 菜品列表
+     * @param categoryId the category id
+     * @return the list of dishes
      */
     List<Dish> listByCategoryId(Long categoryId);
 
     /**
-     * 条件查询菜品和口味
+     * Retrieves a list of dishes with flavors.
      *
-     * @param dish 菜品对象
-     * @return 菜品列表 with flavor. Why object to list?
+     * @param dish the dish object
+     * @return the list of dishes with flavor
      */
     List<DishVO> listWithFlavor(Dish dish);
 }
