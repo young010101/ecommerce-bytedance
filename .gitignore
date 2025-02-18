@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+### Node ###
+node_modules/
+
 sky-server/src/main/resources/application-dev.yml
 sky-server/src/main/resources/application-dev.yml_

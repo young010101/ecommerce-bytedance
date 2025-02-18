@@ -17,5 +17,9 @@ repos:
         name: PMD
         entry: mvn pmd:check
         language: system
-        types: [java]
+        pass_filenames: false
+      - id: maven-spotless
+        name: Maven Spotless
+        entry: mvn spotless:check
+        language: system
         pass_filenames: false
