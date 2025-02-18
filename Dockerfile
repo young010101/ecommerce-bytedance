@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # 第二阶段：运行应用
-FROM openjdk:17-jre
+FROM openjdk:17-slim
 WORKDIR /app
 
 # 从构建阶段复制打包好的 jar 文件，注意将 target/your-app.jar 替换为实际的 jar 文件名
