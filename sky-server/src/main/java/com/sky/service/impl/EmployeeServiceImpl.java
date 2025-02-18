@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,29 +39,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         String username = employeeLoginDTO.getUsername();
         String password = employeeLoginDTO.getPassword();
 
-        //1、根据用户名查询数据库中的数据
+        // 1、根据用户名查询数据库中的数据
         Employee employee = employeeMapper.getByUsername(username);
 
-        //2、处理各种异常情况（用户名不存在、密码不对、账号被锁定）
+        // 2、处理各种异常情况（用户名不存在、密码不对、账号被锁定）
         if (employee == null) {
-            //账号不存在
+            // 账号不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
-        //密码比对
+        // 密码比对
         // 对前端传来的明文密码进行md5加密
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!password.equals(employee.getPassword())) {
-            //密码错误
+            // 密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
         if (employee.getStatus() == StatusConstant.DISABLE) {
-            //账号被锁定
+            // 账号被锁定
             throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
         }
 
-        //3、返回实体对象
+        // 3、返回实体对象
         return employee;
     }
 
@@ -73,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeDTO
      */
     @Override
-    public void addEmployee(EmployeeDTO employeeDTO){
+    public void addEmployee(EmployeeDTO employeeDTO) {
         System.out.println("Current Thread id: " + Thread.currentThread().getId());
         Employee employee = new Employee();
 
@@ -119,18 +117,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 启用禁用员工账号
+     *
      * @param status 状态
      *               1：启用
      *               0：禁用
-     * @param id 员工id
+     * @param id     员工id
      */
     @Override
     public void enableOrDisableEmployee(Integer status, Long id) {
         // update employee set status = #{status} where id = #{id}
 
-//        Employee employee = new Employee();
-//        employee.setStatus(status);
-//        employee.setId(id);
+        // Employee employee = new Employee();
+        // employee.setStatus(status);
+        // employee.setId(id);
 
         Employee employee = Employee.builder()
                 .status(status)
@@ -139,7 +138,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeMapper.update(employee);
     }
-
 
     /**
      * 编辑员工信息

@@ -13,3 +13,9 @@ repos:
         entry: mvn checkstyle:check
         language: system
         pass_filenames: false
+      - id: pmd
+        name: PMD
+        entry: mvn pmd:check
+        language: system
+        types: [java]
+        pass_filenames: false
