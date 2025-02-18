@@ -44,5 +44,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and Test
+        env:
+          SPRING_PROFILES_ACTIVE: ci
         run: |
           mvn clean test

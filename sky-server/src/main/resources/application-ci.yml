@@ -15,7 +15,7 @@ sky:
     host: localhost
     port: 6379
     password: xxxxxxxxx
-    database: xxxxxxxxx
+    database: 10
   wechat:
     appid: xxxxxxxxx
     secret: xxxxxxxxx
