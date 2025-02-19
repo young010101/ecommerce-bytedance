@@ -15,8 +15,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.DigestUtils;
 
+@SpringBootTest
+@ActiveProfiles("test")
 class EmployeeServiceImplTest {
 
   @Mock private EmployeeMapper employeeMapper;
@@ -28,16 +33,19 @@ class EmployeeServiceImplTest {
     MockitoAnnotations.openMocks(this);
   }
 
+  @Value("${test.password}")
+  private String testPassword;
+
   @Test
   void login_success() {
     // Arrange
     EmployeeLoginDTO loginDTO = new EmployeeLoginDTO();
     loginDTO.setUsername("test");
-    loginDTO.setPassword("123456");
+    loginDTO.setPassword(testPassword);
 
     Employee mockEmployee = new Employee();
     mockEmployee.setStatus(StatusConstant.ENABLE);
-    mockEmployee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+    mockEmployee.setPassword(DigestUtils.md5DigestAsHex(testPassword.getBytes()));
 
     when(employeeMapper.getByUsername(anyString())).thenReturn(mockEmployee);
 
