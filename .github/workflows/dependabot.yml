@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"           # 存放 pom.xml 的目录，如果在子目录，请调整路径
+    schedule:
+      interval: "daily"     # 你可以根据需要改为 daily 或 monthly
