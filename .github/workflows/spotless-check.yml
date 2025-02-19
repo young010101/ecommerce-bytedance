@@ -1,0 +1,24 @@
+name: Spotless Check
+
+on:
+  push:
+    # branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  spotless:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'  # Adjust this to your project's Java version
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Run Spotless Check
+      run: mvn spotless:check
