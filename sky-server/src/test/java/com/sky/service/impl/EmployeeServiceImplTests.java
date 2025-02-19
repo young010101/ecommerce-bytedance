@@ -65,11 +65,7 @@ class EmployeeServiceImplTest {
     when(employeeMapper.getByUsername(anyString())).thenReturn(null);
 
     // Act & Assert
-    assertThrows(
-        AccountNotFoundException.class,
-        () -> {
-          employeeService.login(loginDTO);
-        });
+    assertThrows(AccountNotFoundException.class, () -> employeeService.login(loginDTO));
   }
 
   @Test
@@ -77,19 +73,15 @@ class EmployeeServiceImplTest {
     // Arrange
     EmployeeLoginDTO loginDTO = new EmployeeLoginDTO();
     loginDTO.setUsername("locked");
-    loginDTO.setPassword("123456");
+    loginDTO.setPassword(testPassword);
 
     Employee mockEmployee = new Employee();
     mockEmployee.setStatus(StatusConstant.DISABLE);
-    mockEmployee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+    mockEmployee.setPassword(DigestUtils.md5DigestAsHex(testPassword.getBytes()));
 
     when(employeeMapper.getByUsername(anyString())).thenReturn(mockEmployee);
 
     // Act & Assert
-    assertThrows(
-        AccountLockedException.class,
-        () -> {
-          employeeService.login(loginDTO);
-        });
+    assertThrows(AccountLockedException.class, () -> employeeService.login(loginDTO));
   }
 }
