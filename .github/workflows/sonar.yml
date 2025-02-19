@@ -1,9 +1,9 @@
 name: SonarCloud Analysis
 on:
   push:
-    branches: [ sonar ]
+    branches: [ main ]
   pull_request:
-    branches: [ sonar ]
+    branches: [ main ]
 
 jobs:
   sonar:
@@ -16,7 +16,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: SonarCloud Scan
-        run: mvn verify sonar:sonar
+        run: mvn clean verify sonar:sonar -Dsonar.organization=young010101
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
           SPRING_PROFILES_ACTIVE: ci
