@@ -31,6 +31,7 @@
         <jaxb-api>2.3.1</jaxb-api>
         <poi>3.16</poi>
         <spring-ai.version>1.0.0-M6</spring-ai.version>
+        <thrift>0.21.0</thrift>
     </properties>
     <repositories>
         <repository>
@@ -154,7 +155,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${thrift}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
