@@ -1,4 +1,4 @@
-# :cloud: Gomall
+# :cloud: Mall
 
 ![Build](https://github.com/young010101/ecommerce-bytedance/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/young010101/ecommerce-bytedance/branch/dev/graph/badge.svg)](https://codecov.io/gh/young010101/ecommerce-bytedance)
@@ -7,7 +7,7 @@
 
 [中文](README_cn.md)
 
-This is a teaching project for newbie using CloudWeGo
+This is a youth training camp project.
 
 ## Technology Stack
 
@@ -23,20 +23,23 @@ This is a teaching project for newbie using CloudWeGo
 | Prometheus    | -  |
 | Jaeger        | -  |
 | Docker        | -  |
+| Thrift        | -  |
+| OpenAI        | -  |
 
 ## Biz Logic
 
-- [x] The pages check auth
-- [x] Register
-- [x] Login
-- [x] Logout
-- [x] Product categories
-- [x] Products
-- [x] Add to cart
-- [x] The number badge of cart products
-- [x] Checkout
-- [x] Payment
-- [x] Orders center
+- [ ] The pages check auth
+- [ ] Register
+- [ ] Login
+- [ ] Logout
+- [ ] Product categories
+- [ ] Products
+- [ ] Add to cart
+- [ ] The number badge of cart products
+- [ ] Checkout
+- [ ] Payment
+- [ ] Orders center
+- [ ] Chat with OpenAI
 
 ## How to use
 
