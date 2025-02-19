@@ -2,11 +2,12 @@ package com.sky.controller.admin;
 
 import com.sky.result.Result;
 
+import com.sky.thrift.AddRequest;
+import com.sky.thrift.AddResponse;
 import com.sky.thrift.Hello;
 import com.sky.thrift.Request;
 import com.sky.thrift.Response;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -27,6 +28,7 @@ public class ThriftController {
     Result<String> thrift_hello() {
         TTransport transport;
         String name;
+        long age;
         {
             try {
                 transport = new TSocket("localhost", 8888);
@@ -43,15 +45,20 @@ public class ThriftController {
             // AddRequest request = new AddRequest();
             Request request = new Request();
             request.message = "hello world2";
+            AddRequest addRequest = new AddRequest();
+            addRequest.first = 512;
+            addRequest.second = 1024;
             try {
                 Response response = client.echo(request);
                 name = response.message;
+                AddResponse addResponse = client.add(addRequest);
+                age = addResponse.sum;
             } catch (TException ex) {
                 throw new RuntimeException(ex);
             }
             log.info("thrift user: {}", request.message);
         }
-        return Result.success("hello " + name + "!");
+        return Result.success("hello " + name + "!" + age);
     }
 
     @GetMapping("/hello/{name}")
