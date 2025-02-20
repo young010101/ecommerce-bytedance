@@ -9,6 +9,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
+import javax.crypto.SecretKey;
 
 public class JwtUtil {
     /**
@@ -21,8 +22,6 @@ public class JwtUtil {
      * @return jwt token
      */
     public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
-        // 指定签名的时候使用的签名算法，也就是header那部分
-        // SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         // 生成JWT的时间
@@ -48,9 +47,7 @@ public class JwtUtil {
     public static Claims parseJWT(String secretKey, String token) {
         // 得到DefaultJwtParser
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
-        // 设置签名的秘钥
-        // 设置需要解析的jwt
-        // .parseClaimsJws(token).getBody();
+
         return Jwts.parser()
                 // 设置签名的秘钥
                 .verifyWith(key)
