@@ -12,7 +12,7 @@
     <groupId>spring.ai.example</groupId>
     <artifactId>sky-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-ai-demo-tju</name>
+    <name>spring-ai-demo-cyang</name>
     <description>Spring AI , getting started example, using Open AI</description>
     <url/>
     <licenses>
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <version>8.0.33</version>
         </dependency>
 
         <dependency>
@@ -130,22 +130,14 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
-            <version>${thrift.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-            <version>${spring-ai.version}</version>
+            <version>0.21.0</version>
         </dependency>
     </dependencies>
 
