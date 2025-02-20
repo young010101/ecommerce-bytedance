@@ -12,7 +12,7 @@
     <groupId>spring.ai.example</groupId>
     <artifactId>sky-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-ai-demo-cyang</name>
+    <name>spring-ai-demo-tju</name>
     <description>Spring AI , getting started example, using Open AI</description>
     <url/>
     <licenses>
