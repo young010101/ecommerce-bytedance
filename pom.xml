@@ -20,7 +20,7 @@
     <properties>
         <mybatis.spring>3.0.3</mybatis.spring>
         <lombok>1.18.30</lombok>
-        <fastjson>2.0.47</fastjson>
+        <fastjson>2.0.55</fastjson>
         <commons.lang>3.17.0</commons.lang>
         <druid>1.2.21</druid>
         <pagehelper>1.4.7</pagehelper>
@@ -29,8 +29,8 @@
         <aspectj>1.9.21</aspectj>
         <jjwt>0.12.6</jjwt>
         <jaxb-api>2.3.1</jaxb-api>
-        <poi>5.2.5</poi>
-        <spring-ai.version>1.0.0-M3</spring-ai.version>
+        <poi>5.4.0</poi>
+        <spring-ai.version>1.0.0-M6</spring-ai.version>
         <thrift>0.21.0</thrift>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -159,7 +159,7 @@
             <dependency>
                 <groupId>com.github.wechatpay-apiv3</groupId>
                 <artifactId>wechatpay-apache-httpclient</artifactId>
-                <version>0.4.8</version>
+                <version>0.6.0</version>
             </dependency>
 
             <dependency>
