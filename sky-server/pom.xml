@@ -139,6 +139,11 @@
             <artifactId>libthrift</artifactId>
             <version>0.21.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
