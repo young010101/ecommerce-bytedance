@@ -114,3 +114,7 @@ make
 ## Contributors
 
 - [young010101](https://github.com/young010101)
+
+## Reference
+
+- [Dubbo mall](https://cn.dubbo.apache.org/zh-cn/overview/demo/)
