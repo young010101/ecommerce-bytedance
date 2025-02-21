@@ -26,7 +26,7 @@
         <pagehelper>1.4.7</pagehelper>
         <aliyun.sdk.oss>3.17.4</aliyun.sdk.oss>
         <knife4j>4.4.0</knife4j>
-        <aspectj>1.9.21</aspectj>
+        <aspectj>1.9.22.1</aspectj>
         <jjwt>0.12.6</jjwt>
         <jaxb-api>2.3.1</jaxb-api>
         <poi>5.4.0</poi>
