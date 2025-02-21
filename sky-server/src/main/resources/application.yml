@@ -86,3 +86,13 @@ knife4j:
       name: 接口签名
       # 某一个文件夹下单个.md文件
       locations: classpath:markdown/sign.md
+
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+    logger: slf4j
+  protocol:
+    name: tri
+    port: -1
+  registry:
+    address: zookeeper://127.0.0.1:2181
