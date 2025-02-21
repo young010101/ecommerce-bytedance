@@ -215,6 +215,12 @@
                 <version>${protobuf.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.19.6</version>
+            </dependency>
+
             <!-- https://www.jianshu.com/p/042276ffd262 -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
