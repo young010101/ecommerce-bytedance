@@ -7,9 +7,33 @@ on:
 
 jobs:
   sonar:
+    if: github.actor == 'young010101'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: docker composer
+        run: |
+          docker compose -f docker/standalone-derby.yaml up -d
+
+      - name: Check Running Containers
+        run: docker ps  # 🛠️ 确保容器正在运行
+
+      - name: Wait for Services to Start
+        run: sleep 20  # ⏳ 等待服务启动
+
+      - name: Wait for Nacos service to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -f curl -f http://localhost:8848/nacos/actuator/health; then
+              echo "Nacos is up!"
+              exit 0
+            fi
+            echo "Waiting for Nacos..."
+            sleep 2
+          done
+          echo "Nacos did not become ready in time" && exit 1
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:

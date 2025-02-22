@@ -22,7 +22,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: docker composer
+        run: |
+          docker compose -f docker/standalone-derby.yaml up -d
+
+      - name: Check Running Containers
+        run: docker ps  # 🛠️ 确保容器正在运行
+
+      - name: Wait for Services to Start
+        run: sleep 20  # ⏳ 等待服务启动
+
+      - name: Wait for Nacos service to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -f curl -f http://localhost:8848/nacos/actuator/health; then
+              echo "Nacos is up!"
+              exit 0
+            fi
+            echo "Waiting for Nacos..."
+            sleep 2
+          done
+          echo "Nacos did not become ready in time" && exit 1
 
       - name: Wait for MySQL service to be ready
         run: |
@@ -36,7 +58,6 @@ jobs:
           done
           echo "MySQL did not become ready in time" && exit 1
 
-      - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -60,15 +81,15 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@327cd5a69de6c009b9ce71bce8395f28e651bf99
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/sky-take-out:latest
+#      - name: Log in to Docker Hub
+#        uses: docker/login-action@327cd5a69de6c009b9ce71bce8395f28e651bf99
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Build and push Docker image
+#        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991
+#        with:
+#          context: .
+#          push: true
+#          tags: ${{ secrets.DOCKER_USERNAME }}/sky-take-out:latest
