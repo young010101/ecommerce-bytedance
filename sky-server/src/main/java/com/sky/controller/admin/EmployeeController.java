@@ -109,9 +109,9 @@ public class EmployeeController {
     /**
      * 启用禁用员工账号
      */
-    @PostMapping("/status/{status}")
+    @PostMapping("/status/{status}/id/{id}")
     @Operation(summary = "启用禁用员工账号")
-    public Result<String> enableOrDisableEmployee(@PathVariable Integer status, Long id) {
+    public Result<String> enableOrDisableEmployee(@PathVariable Integer status, @PathVariable Long id) {
         log.info("启用禁用员工账号：status={}, id={}", status, id);
         employeeService.enableOrDisableEmployee(status, id);
         return Result.success();
@@ -125,7 +125,7 @@ public class EmployeeController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "根据id查询员工")
-    public Result<Employee> getEmployeeById(@PathVariable Long id) {
+    public Result<Employee> getEmployeeById(@PathVariable("id") Long id) {
         log.info("根据id查询员工：id={}", id);
         Employee employee = employeeService.getEmployeeById(id);
         return Result.success(employee);

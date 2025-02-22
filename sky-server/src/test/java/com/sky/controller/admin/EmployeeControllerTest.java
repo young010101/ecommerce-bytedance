@@ -21,9 +21,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -33,11 +33,11 @@ class EmployeeControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
-  @MockBean private EmployeeService employeeService;
+  @MockitoBean private EmployeeService employeeService;
 
-  @MockBean private JwtProperties jwtProperties;
+  @MockitoBean private JwtProperties jwtProperties;
 
-  @MockBean private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+  @MockitoBean private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
 
   @Autowired private ObjectMapper objectMapper;
 
@@ -100,9 +100,7 @@ class EmployeeControllerTest {
     String url = "/admin/employee/logout";
     MockHttpServletResponse response =
         mockMvc
-            .perform(
-                MockMvcRequestBuilders.post(url)
-                    .header("Authorization", "Bearer " + "validToken")) // 添加有效Token)
+            .perform(MockMvcRequestBuilders.post(url)) // 添加有效Token)
             .andReturn() // 获取结果
             .getResponse(); // 获取响应
 
@@ -154,7 +152,7 @@ class EmployeeControllerTest {
     doNothing().when(employeeService).enableOrDisableEmployee(anyInt(), anyLong());
 
     mockMvc
-        .perform(post("/admin/employee/status/1").param("id", "1"))
+        .perform(post("/admin/employee/status/1/id/1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.code").value(1));
 

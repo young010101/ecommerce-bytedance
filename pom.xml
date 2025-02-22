@@ -3,11 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
+    <!-- <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>3.3.8</version>
-    </parent>
+        <version>3.1.2</version>
+    </parent> -->
     <groupId>com.sky</groupId>
     <artifactId>sky-take-out</artifactId>
     <packaging>pom</packaging>
@@ -18,6 +18,7 @@
         <module>sky-server</module>
     </modules>
     <properties>
+        <spring-boot.version>3.4.1</spring-boot.version>
         <mybatis.spring>3.0.3</mybatis.spring>
         <lombok>1.18.30</lombok>
         <fastjson>2.0.55</fastjson>
@@ -26,9 +27,10 @@
         <pagehelper>1.4.7</pagehelper>
         <aliyun.sdk.oss>3.17.4</aliyun.sdk.oss>
         <knife4j>4.4.0</knife4j>
+        <springdoc.version>2.8.5</springdoc.version>
         <aspectj>1.9.21</aspectj>
         <jjwt>0.12.6</jjwt>
-        <jaxb-api>2.3.1</jaxb-api>
+        <jaxb-api>4.0.0</jaxb-api>
         <poi>5.4.0</poi>
         <spring-ai.version>1.0.0-M6</spring-ai.version>
         <thrift.version>0.21.0</thrift.version>
@@ -38,10 +40,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mysql.version>8.0.33</mysql.version>
         <maven.checkstyle.version>3.3.1</maven.checkstyle.version>
-        <protobuf.version>4.28.2</protobuf.version>
+        <protoc.version>4.28.2</protoc.version>
         <classgraph.version>4.8.179</classgraph.version>
         <javax.annotation.version>3.0.0</javax.annotation.version>
         <wechatpay.version>0.6.0</wechatpay.version>
+        <dubbo.version>3.3.0</dubbo.version>
     </properties>
     <repositories>
         <repository>
@@ -63,6 +66,13 @@
     </repositories>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -142,8 +152,8 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
                 <version>${jaxb-api}</version>
             </dependency>
 
@@ -204,7 +214,40 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
-                <version>${protobuf.version}</version>
+                <version>${protoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.19.6</version>
+            </dependency>
+
+            <!-- https://www.jianshu.com/p/042276ffd262 -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-zookeeper-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -232,6 +275,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-maven-plugin</artifactId>
+                <version>${dubbo.version}</version> <!-- 3.3.0及以上版本 -->
+                <configuration>
+                    <outputDir>build/generated/source/proto/main/java</outputDir> <!-- 参考下文可配置参数 -->
+                </configuration>
             </plugin>
         </plugins>
     </build>
