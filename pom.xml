@@ -37,8 +37,11 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mysql.version>8.0.33</mysql.version>
-        <javax.annotation.version>1.3.2</javax.annotation.version>
         <maven.checkstyle.version>3.3.1</maven.checkstyle.version>
+        <protobuf.version>4.28.2</protobuf.version>
+        <classgraph.version>4.8.179</classgraph.version>
+        <javax.annotation.version>3.0.0</javax.annotation.version>
+        <wechatpay.version>0.6.0</wechatpay.version>
     </properties>
     <repositories>
         <repository>
@@ -98,7 +101,7 @@
 
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j}</version>
             </dependency>
 
@@ -159,7 +162,7 @@
             <dependency>
                 <groupId>com.github.wechatpay-apiv3</groupId>
                 <artifactId>wechatpay-apache-httpclient</artifactId>
-                <version>0.6.0</version>
+                <version>${wechatpay.version}</version>
             </dependency>
 
             <dependency>
@@ -183,13 +186,13 @@
             <dependency>
                 <groupId>jakarta.annotation</groupId>
                 <artifactId>jakarta.annotation-api</artifactId>
-                <version>2.1.1</version>
+                <version>${javax.annotation.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.classgraph</groupId>
                 <artifactId>classgraph</artifactId>
-                <version>4.8.179</version>
+                <version>${classgraph.version}</version>
             </dependency>
 
             <dependency>
@@ -199,15 +202,9 @@
             </dependency>
 
             <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
-                <version>2.1.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.github.classgraph</groupId>
-                <artifactId>classgraph</artifactId>
-                <version>4.8.179</version>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -216,7 +213,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.43.0</version>
+                <version>2.44.3</version>
                 <configuration>
                     <java>
                         <excludes>

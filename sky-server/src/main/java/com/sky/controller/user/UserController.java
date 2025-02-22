@@ -8,9 +8,8 @@ import com.sky.result.Result;
 import com.sky.service.UserService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.UserLoginVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +23,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/user/user")
-@Api(tags = "C端-用户接口")
+@Tag(name = "C端-用户接口")
 public class UserController {
 
     @Autowired
@@ -33,9 +32,9 @@ public class UserController {
     private JwtProperties jwtProperties;
 
     @PostMapping("/login")
-    @ApiOperation("用户登录")
+    @Operation(summary = "用户登录")
     public Result<UserLoginVO> login(
-            @ApiParam(value = "用户授权码", required = true) @RequestBody UserLoginDTO userLoginDTO) {
+            @RequestBody UserLoginDTO userLoginDTO) {
         log.info("用户登录请求：{}", userLoginDTO);
         User user = userService.wxLogin(userLoginDTO);
 
@@ -49,16 +48,16 @@ public class UserController {
                 claim);
 
         UserLoginVO userLoginVO = UserLoginVO.builder()
-               .id(user.getId())
-               .openid(user.getOpenid())
-               .token(token)
-               .build();
+                .id(user.getId())
+                .openid(user.getOpenid())
+                .token(token)
+                .build();
 
         return Result.success(userLoginVO);
     }
 
     @PostMapping("/logout")
-    @ApiOperation("用户退出")
+    @Operation(summary = "用户退出")
     public Result<String> logout() {
         log.info("用户退出");
         userService.logout();
