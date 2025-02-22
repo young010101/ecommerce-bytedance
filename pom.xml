@@ -19,7 +19,7 @@
     </modules>
     <properties>
         <spring-boot.version>3.4.1</spring-boot.version>
-        <mybatis.spring>3.0.3</mybatis.spring>
+        <mybatis.spring>3.0.4</mybatis.spring>
         <lombok>1.18.30</lombok>
         <fastjson>2.0.55</fastjson>
         <commons.lang>3.17.0</commons.lang>
