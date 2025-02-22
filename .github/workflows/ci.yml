@@ -34,7 +34,7 @@ jobs:
       - name: Wait for Nacos service to be ready
         run: |
           for i in {1..30}; do
-            if curl -f http://localhost:8848/nacos/v1/console/health; then
+            if curl -f curl -f http://localhost:8848/nacos/actuator/health; then
               echo "Nacos is up!"
               exit 0
             fi
