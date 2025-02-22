@@ -208,6 +208,16 @@
                 </execution>
               </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <parameters>true</parameters> <!-- 保留参数名 -->
+                    <source>17</source> <!-- 调整为你的 Java 版本 -->
+                    <target>17</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
