@@ -19,16 +19,56 @@ jobs:
           - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+
       nacos:
-        image: nacos/nacos-server:latest
-        env:
-          MODE: standalone  # 单机模式
+        image: nacos/nacos-server:${NACOS_VERSION}
+        container_name: nacos-standalone
+        environment:
+          - PREFER_HOST_MODE=hostname
+          - MODE=standalone
+          - NACOS_AUTH_IDENTITY_KEY=serverIdentity
+          - NACOS_AUTH_IDENTITY_VALUE=security
+          - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+        volumes:
+          - ./standalone-logs/:/home/nacos/logs
         ports:
-          - 8848:8848  # 默认 Nacos 端口
-        options: >-
-          --health-cmd="curl -f http://localhost:8848/nacos/v1/console/health || exit 1" --health-interval=10s --health-timeout=5s --health-retries=3
+          - "8848:8848"
+          - "9848:9848"
+      prometheus:
+        container_name: prometheus
+        image: prom/prometheus:latest
+        volumes:
+          - ./prometheus/prometheus-standalone.yaml:/etc/prometheus/prometheus.yml
+        ports:
+          - "9090:9090"
+        depends_on:
+          - nacos
+        restart: on-failure
+      grafana:
+        container_name: grafana
+        image: grafana/grafana:latest
+        ports:
+          - 3000:3000
+        restart: on-failure
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Start Nacos
+        run: |
+          docker run -d \
+            -p 8848:8848 \
+            -p 9848:9848 \
+            -e MODE=standalone \
+            -e JVM_XMS=512m \
+            -e JVM_XMX=512m \
+            -e JVM_XMN=256m \
+            nacos/nacos-server:latest
+
+      - name: Wait for Nacos
+        run: sleep 30 && curl -f http://localhost:8848/nacos/actuator/health
+
       - name: Wait for Nacos service to be ready
         run: |
           for i in {1..30}; do
