@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sky.interceptor.JwtTokenAdminInterceptor;
 import com.sky.properties.JwtProperties;
 import com.sky.service.DemoService;
-import com.sky.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,8 +24,6 @@ class DemoDubboControllerTest {
   @Autowired private MockMvc mockMvc;
 
   @MockitoBean private DemoService demoService;
-
-  @MockitoBean private EmployeeService employeeService;
 
   @MockitoBean private JwtProperties jwtProperties;
 
