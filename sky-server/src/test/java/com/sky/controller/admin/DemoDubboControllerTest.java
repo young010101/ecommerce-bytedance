@@ -1,13 +1,18 @@
 package com.sky.controller.admin;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sky.interceptor.JwtTokenAdminInterceptor;
 import com.sky.properties.JwtProperties;
+import com.sky.protos.Greeter;
+import com.sky.protos.GreeterReply;
+import com.sky.protos.GreeterRequest;
 import com.sky.service.DemoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +33,8 @@ class DemoDubboControllerTest {
   @MockitoBean private JwtProperties jwtProperties;
 
   @MockitoBean private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+
+  @MockitoBean private Greeter greeterService;
 
   @Autowired private ObjectMapper objectMapper;
 
@@ -64,5 +71,26 @@ class DemoDubboControllerTest {
         .perform(get("/dubbo/protoc"))
         .andExpect(status().isOk())
         .andExpect(content().string("hello"));
+  }
+
+  @Test
+  void greeter_ShouldReturnExpectedMessage() throws Exception {
+    when(jwtTokenAdminInterceptor.preHandle(
+            any(HttpServletRequest.class), any(HttpServletResponse.class), any(Object.class)))
+        .thenReturn(true);
+    // 预期:Hello World
+    // 实际:{"code":1,"msg":null,"data":"Hello World"}
+    // .andExpect(jsonPath("$.code").value(1))
+    // .andExpect(jsonPath("$.data.username").value("test"));
+    String reply = "Hello World";
+    when(greeterService.greet(any(GreeterRequest.class)))
+        .thenReturn(GreeterReply.newBuilder().setMessage(reply).build());
+
+    mockMvc
+        .perform(get("/dubbo/greeter/world"))
+        .andExpect(status().isOk())
+        // .andExpect(content().string(reply))
+        .andExpect(jsonPath("$.code").value(1))
+        .andExpect(jsonPath("$.data").value(reply));
   }
 }
