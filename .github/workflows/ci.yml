@@ -22,7 +22,7 @@ jobs:
 
       nacos:
         image: nacos/nacos-server:${NACOS_VERSION}
-        container_name: nacos-standalone
+#        container_name: nacos-standalone
         environment:
           - PREFER_HOST_MODE=hostname
           - MODE=standalone
@@ -35,7 +35,7 @@ jobs:
           - "8848:8848"
           - "9848:9848"
       prometheus:
-        container_name: prometheus
+#        container_name: prometheus
         image: prom/prometheus:latest
         volumes:
           - ./prometheus/prometheus-standalone.yaml:/etc/prometheus/prometheus.yml
@@ -45,7 +45,7 @@ jobs:
           - nacos
         restart: on-failure
       grafana:
-        container_name: grafana
+#        container_name: grafana
         image: grafana/grafana:latest
         ports:
           - 3000:3000
