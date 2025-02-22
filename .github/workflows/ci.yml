@@ -26,7 +26,7 @@ jobs:
 
       - name: docker composer
         run: |
-          docker compose -f docker/standalone-derby.yaml up
+          docker compose -f docker/standalone-derby.yaml up -d
 
       - name: Start Nacos
         run: |
