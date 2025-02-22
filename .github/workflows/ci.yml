@@ -28,9 +28,6 @@ jobs:
         run: |
           docker compose -f docker/standalone-derby.yaml up -d
 
-      - name: Wait for Nacos
-        run: sleep 30 && curl -f http://localhost:8848/nacos/actuator/health
-
       - name: Check Running Containers
         run: docker ps  # 🛠️ 确保容器正在运行
 
