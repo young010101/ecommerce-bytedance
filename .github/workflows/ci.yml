@@ -31,6 +31,9 @@ jobs:
       - name: Check Running Containers
         run: docker ps  # 🛠️ 确保容器正在运行
 
+      - name: Wait for Services to Start
+        run: sleep 20  # ⏳ 等待服务启动
+
       - name: Wait for Nacos service to be ready
         run: |
           for i in {1..30}; do
