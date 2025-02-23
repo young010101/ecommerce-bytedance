@@ -115,7 +115,7 @@ class EmployeeControllerTest {
     when(jwtTokenAdminInterceptor.preHandle(
             any(HttpServletRequest.class), any(HttpServletResponse.class), any(Object.class)))
         .thenReturn(true);
-    doNothing().when(employeeService).addEmployee(any(EmployeeDTO.class));
+    when((employeeService).addEmployee(any(EmployeeDTO.class))).thenReturn(testEmployeeDTO.getId());
 
     mockMvc
         .perform(
