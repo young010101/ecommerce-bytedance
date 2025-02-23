@@ -5,17 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.sky.protos.Product;
 import com.sky.vo.DishVO;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class ProductMapperTest {
 
-  private final ProductMapper productMapper = new ProductMapper();
-
   @Test
   void toProduct_ShouldReturnNull_WhenDishVOIsNull() {
-    assertNull(productMapper.toProduct(null));
+    assertNull(ProductMapper.toProduct(null));
   }
 
   @Test
@@ -29,7 +26,7 @@ class ProductMapperTest {
     dishVO.setPrice(new BigDecimal("88.88"));
 
     // Act
-    Product product = productMapper.toProduct(dishVO);
+    Product product = ProductMapper.toProduct(dishVO);
 
     // Assert
     assertNotNull(product);
@@ -42,7 +39,7 @@ class ProductMapperTest {
 
   @Test
   void toProducts_ShouldReturnNull_WhenDishVOListIsNull() {
-    assertNull(productMapper.toProducts(null));
+    assertNull(ProductMapper.toProducts(null));
   }
 
   @Test
@@ -55,10 +52,10 @@ class ProductMapperTest {
     dishVO.setImage("test.jpg");
     dishVO.setPrice(new BigDecimal("88.88"));
 
-    List<DishVO> dishVOs = Arrays.asList(dishVO);
+    List<DishVO> dishVOs = List.of(dishVO);
 
     // Act
-    List<Product> products = productMapper.toProducts(dishVOs);
+    List<Product> products = ProductMapper.toProducts(dishVOs);
 
     // Assert
     assertNotNull(products);

@@ -20,13 +20,41 @@ import org.mockito.MockitoAnnotations;
 class ProductCatalogServiceImplTest {
 
   @Mock private DishService dishService;
-  @Mock ProductMapper productMapper;
 
   @InjectMocks private ProductCatalogServiceImpl productCatalogService;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
+  }
+
+  @Test
+  void listProducts_ShouldReturnProductList_WhenGivenValidPageRequest() {
+    // Arrange
+    ListProductsReq request = ListProductsReq.newBuilder().setPage(1).setPageSize(10).build();
+
+    DishVO dishVO = new DishVO(); // Add necessary fields
+    dishVO.setId(1L);
+    dishVO.setName("测试菜品");
+    dishVO.setCategoryName("测试分类");
+    dishVO.setImage("test-image.jpg");
+    dishVO.setPrice(new BigDecimal("88.00"));
+    List<DishVO> dishVOList = List.of(dishVO);
+    PageResult<DishVO> pageResult = new PageResult<>();
+    pageResult.setRecords(dishVOList);
+
+    Product mockProduct = Product.newBuilder().build(); // Add necessary fields
+    Product expectedProduct = ProductMapper.toProduct(dishVO);
+
+    when(dishService.pageQuery(any(DishPageQueryDTO.class))).thenReturn(pageResult);
+
+    // Act
+    ListProductsResp response = productCatalogService.listProducts(request);
+
+    // Assert
+    assertNotNull(response);
+    assertEquals(1, response.getProductsCount());
+    assertEquals(expectedProduct, response.getProducts(0));
   }
 
   @Test
@@ -42,6 +70,7 @@ class ProductCatalogServiceImplTest {
 
     when(dishService.getByIdWithFlavor(1L)).thenReturn(mockDishVO);
 
+    Product product = ProductMapper.toProduct(mockDishVO);
     GetProductReq request = GetProductReq.newBuilder().setId(productId).build();
 
     // Act
@@ -51,44 +80,12 @@ class ProductCatalogServiceImplTest {
     assertNotNull(response);
     assertNotNull(response.getProduct());
 
-    Product product = response.getProduct();
-    assertEquals(productId, product.getId());
-    assertEquals(mockDishVO.getName(), product.getName());
-    assertEquals(mockDishVO.getCategoryName(), product.getDescription());
-    assertEquals(mockDishVO.getImage(), product.getPicture());
-    assertEquals(mockDishVO.getPrice().intValue(), product.getPrice());
+    assertEquals(productId, response.getProduct().getId());
+    assertEquals(mockDishVO.getName(), response.getProduct().getName());
+    assertEquals(mockDishVO.getCategoryName(), response.getProduct().getDescription());
+    assertEquals(mockDishVO.getImage(), response.getProduct().getPicture());
+    assertEquals(mockDishVO.getPrice().intValue(), response.getProduct().getPrice());
 
     verify(dishService, times(1)).getByIdWithFlavor(1L);
-  }
-
-  @Test
-  void listProducts_ShouldReturnProductList_WhenGivenValidPageRequest() {
-    // Arrange
-    ListProductsReq request = ListProductsReq.newBuilder().setPage(1).setPageSize(10).build();
-
-    DishVO dishVO = new DishVO(); // Add necessary fields
-    List<DishVO> dishVOList = List.of(dishVO);
-    PageResult<DishVO> pageResult = new PageResult<>();
-    pageResult.setRecords(dishVOList);
-
-    Product mockProduct = Product.newBuilder().build(); // Add necessary fields
-    List<Product> productList = List.of(mockProduct);
-
-    when(dishService.pageQuery(any(DishPageQueryDTO.class))).thenReturn(pageResult);
-
-    when(productMapper.toProducts(dishVOList)).thenReturn(productList);
-
-    // Act
-    ListProductsResp response = productCatalogService.listProducts(request);
-
-    // Assert
-    assertNotNull(response);
-    assertEquals(1, response.getProductsCount());
-    assertEquals(mockProduct, response.getProducts(0));
-  }
-
-  @Test
-  void getProduct_ShouldReturnProduct_WhenGivenValidId() {
-    // ... existing code ...
   }
 }

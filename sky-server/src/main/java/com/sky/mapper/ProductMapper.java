@@ -2,15 +2,13 @@ package com.sky.mapper;
 
 import com.sky.protos.Product;
 import com.sky.vo.DishVO;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class ProductMapper {
+    private ProductMapper() {}
 
-    public Product toProduct(DishVO dishVO) {
+    public static Product toProduct(DishVO dishVO) {
         if (dishVO == null) {
             return null;
         }
@@ -24,13 +22,13 @@ public class ProductMapper {
                 .build();
     }
 
-    public List<Product> toProducts(List<DishVO> dishVOs) {
+    public static List<Product> toProducts(List<DishVO> dishVOs) {
         if (dishVOs == null) {
             return null;
         }
 
         return dishVOs.stream()
-                .map(this::toProduct)
+                .map(ProductMapper::toProduct)
                 .collect(Collectors.toList());
     }
 }

@@ -20,12 +20,6 @@ public class ProductCatalogServiceImpl
     private DishService dishService;
 
     /**
-     * Product mapper instance.
-     */
-    @Autowired
-    private ProductMapper productMapper;
-
-    /**
      * List products.
      *
      * @param request list products request
@@ -40,7 +34,7 @@ public class ProductCatalogServiceImpl
         PageResult<DishVO> pageResult =
             dishService.pageQuery(dishPageQueryDTO);
         List<Product> products =
-            productMapper.toProducts(pageResult.getRecords());
+            ProductMapper.toProducts(pageResult.getRecords());
 
         return ListProductsResp.newBuilder()
                 .addAllProducts(products)
@@ -56,10 +50,7 @@ public class ProductCatalogServiceImpl
     @Override
     public GetProductResp getProduct(final GetProductReq request) {
         DishVO dishVO = dishService.getByIdWithFlavor((long) request.getId());
-        Product product = productMapper.toProduct(dishVO);
-
-        return GetProductResp.newBuilder()
-                .setProduct(product)
-                .build();
+        Product product = ProductMapper.toProduct(dishVO);
+        return GetProductResp.newBuilder().setProduct(product).build();
     }
 }
