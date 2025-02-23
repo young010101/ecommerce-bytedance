@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ClientUserServiceImplTest {
 
   private static final String TEST_EMAIL = "test@example.com";
-  private static final String TEST_PASSWORD = "testPassword"; // For testing only
+  private static final String TEST_CREDENTIAL = PasswordConstant.DEFAULT_PASSWORD;
   private static final Long TEST_USER_ID = 123L;
 
   @Mock private EmployeeService employeeService;
@@ -36,7 +36,7 @@ class ClientUserServiceImplTest {
   void register_ShouldReturnUserId() {
     // Arrange
     RegisterReq request =
-        RegisterReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
+        RegisterReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_CREDENTIAL).build();
 
     EmployeeDTO expectedEmployeeDTO = new EmployeeDTO();
     expectedEmployeeDTO.setUsername(TEST_EMAIL);
@@ -55,7 +55,7 @@ class ClientUserServiceImplTest {
   void login_ShouldReturnUserId() {
     // Arrange
     LoginReq request =
-        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
+        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_CREDENTIAL).build();
 
     Employee mockEmployee = new Employee();
     mockEmployee.setId(TEST_USER_ID);

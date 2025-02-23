@@ -12,6 +12,7 @@ import com.sky.protos.RegisterReq;
 import com.sky.protos.RegisterResp;
 import com.sky.protos.UserService;
 import com.sky.result.Result;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,7 +23,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ClientUserControllerTest {
 
   private static final String TEST_EMAIL = "test@example.com";
-  private static final String TEST_PASSWORD = "testPassword123"; // For testing only
 
   @Mock private UserService userService;
 
@@ -56,12 +56,14 @@ class ClientUserControllerTest {
   @Test
   void login_ShouldReturnUserId_WhenValidCredentials() {
     // Arrange
+    String randomPassword = UUID.randomUUID().toString();
+
     EmployeeLoginDTO loginDTO = new EmployeeLoginDTO();
     loginDTO.setUsername(TEST_EMAIL);
-    loginDTO.setPassword(TEST_PASSWORD);
+    loginDTO.setPassword(randomPassword);
 
     LoginReq expectedRequest =
-        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
+        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(randomPassword).build();
 
     LoginResp mockResponse = LoginResp.newBuilder().setUserId(123).build();
 
