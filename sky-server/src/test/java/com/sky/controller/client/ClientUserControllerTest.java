@@ -21,6 +21,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ClientUserControllerTest {
 
+  private static final String TEST_EMAIL = "test@example.com";
+  private static final String TEST_PASSWORD = "testPassword123"; // For testing only
+
   @Mock private UserService userService;
 
   @InjectMocks private ClientUserController clientUserController;
@@ -29,11 +32,11 @@ class ClientUserControllerTest {
   void register_ShouldReturnUserId_WhenValidRequest() {
     // Arrange
     EmployeeDTO employeeDTO = new EmployeeDTO();
-    employeeDTO.setUsername("test@example.com");
+    employeeDTO.setUsername(TEST_EMAIL);
 
     RegisterReq expectedRequest =
         RegisterReq.newBuilder()
-            .setEmail("test@example.com")
+            .setEmail(TEST_EMAIL)
             .setPassword(PasswordConstant.DEFAULT_PASSWORD)
             .build();
 
@@ -54,11 +57,11 @@ class ClientUserControllerTest {
   void login_ShouldReturnUserId_WhenValidCredentials() {
     // Arrange
     EmployeeLoginDTO loginDTO = new EmployeeLoginDTO();
-    loginDTO.setUsername("test@example.com");
-    loginDTO.setPassword("password123");
+    loginDTO.setUsername(TEST_EMAIL);
+    loginDTO.setPassword(TEST_PASSWORD);
 
     LoginReq expectedRequest =
-        LoginReq.newBuilder().setEmail("test@example.com").setPassword("password123").build();
+        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
 
     LoginResp mockResponse = LoginResp.newBuilder().setUserId(123).build();
 

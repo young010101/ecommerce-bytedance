@@ -10,15 +10,22 @@ import com.sky.entity.Employee;
 import com.sky.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class ClientUserServiceImplTest {
 
-  @InjectMocks private ClientUserServiceImpl clientUserService;
+  private static final String TEST_EMAIL = "test@example.com";
+  private static final String TEST_PASSWORD = "testPassword"; // For testing only
+  private static final Long TEST_USER_ID = 123L;
 
   @Mock private EmployeeService employeeService;
+
+  @InjectMocks private ClientUserServiceImpl clientUserService;
 
   @BeforeEach
   void setUp() {
@@ -28,35 +35,39 @@ class ClientUserServiceImplTest {
   @Test
   void register_ShouldReturnUserId() {
     // Arrange
-    RegisterReq request = RegisterReq.newBuilder().setEmail("test@example.com").build();
+    RegisterReq request =
+        RegisterReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
 
-    when(employeeService.addEmployee(any(EmployeeDTO.class))).thenReturn(1L);
+    EmployeeDTO expectedEmployeeDTO = new EmployeeDTO();
+    expectedEmployeeDTO.setUsername(TEST_EMAIL);
+
+    when(employeeService.addEmployee(any(EmployeeDTO.class))).thenReturn(TEST_USER_ID);
 
     // Act
     RegisterResp response = clientUserService.register(request);
 
     // Assert
-    assertEquals(1, response.getUserId());
-    verify(employeeService, times(1)).addEmployee(any(EmployeeDTO.class));
+    assertEquals(TEST_USER_ID.intValue(), response.getUserId());
+    verify(employeeService).addEmployee(any(EmployeeDTO.class));
   }
 
   @Test
-  void login_ShouldReturnUserIdWhenCredentialsAreValid() {
+  void login_ShouldReturnUserId() {
     // Arrange
     LoginReq request =
-        LoginReq.newBuilder().setEmail("test@example.com").setPassword("password123").build();
+        LoginReq.newBuilder().setEmail(TEST_EMAIL).setPassword(TEST_PASSWORD).build();
 
-    Employee employee = new Employee();
-    employee.setId(1L);
+    Employee mockEmployee = new Employee();
+    mockEmployee.setId(TEST_USER_ID);
 
-    when(employeeService.login(any(EmployeeLoginDTO.class))).thenReturn(employee);
+    when(employeeService.login(any(EmployeeLoginDTO.class))).thenReturn(mockEmployee);
 
     // Act
     LoginResp response = clientUserService.login(request);
 
     // Assert
-    assertEquals(1, response.getUserId());
-    verify(employeeService, times(1)).login(any(EmployeeLoginDTO.class));
+    assertEquals(TEST_USER_ID.intValue(), response.getUserId());
+    verify(employeeService).login(any(EmployeeLoginDTO.class));
   }
 
   @Test
