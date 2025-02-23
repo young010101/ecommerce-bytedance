@@ -22,7 +22,7 @@ public interface DishService {
      * @param dishPageQueryDTO the query parameters for pagination
      * @return page result containing dish information
      */
-    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+    PageResult<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     /**
      * Retrieves dish information by id.
