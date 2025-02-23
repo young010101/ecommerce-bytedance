@@ -20,8 +20,9 @@ public interface EmployeeService {
      * Add an employee.
      *
      * @param employeeDTO 员工信息
+     * @return 员工id
      */
-    void addEmployee(EmployeeDTO employeeDTO);
+    Long addEmployee(EmployeeDTO employeeDTO);
 
     /**
      * 分页查询员工.

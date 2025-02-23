@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee login(EmployeeLoginDTO employeeLoginDTO) {
         String username = employeeLoginDTO.getUsername();
-        String password = employeeLoginDTO.getPassword();
+        var password = employeeLoginDTO.getPassword();
 
         // 1、根据用户名查询数据库中的数据
         Employee employee = employeeMapper.getByUsername(username);
@@ -71,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeDTO
      */
     @Override
-    public void addEmployee(EmployeeDTO employeeDTO) {
+    public Long addEmployee(EmployeeDTO employeeDTO) {
         System.out.println("Current Thread id: " + Thread.currentThread().getId());
         Employee employee = new Employee();
 
@@ -93,6 +93,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         // employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.addEmployee(employee);
+        return employee.getId();
     }
 
     /**
