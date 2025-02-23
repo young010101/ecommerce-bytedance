@@ -75,7 +75,10 @@ class ClientUserServiceImplTest {
   void login_ShouldThrowExceptionWhenCredentialsAreInvalid() {
     // Arrange
     LoginReq request =
-        LoginReq.newBuilder().setEmail("test@example.com").setPassword("wrongpassword").build();
+        LoginReq.newBuilder()
+            .setEmail(TEST_EMAIL)
+            .setPassword(java.util.UUID.randomUUID().toString())
+            .build();
 
     when(employeeService.login(any(EmployeeLoginDTO.class)))
         .thenThrow(new RuntimeException("Invalid credentials"));
