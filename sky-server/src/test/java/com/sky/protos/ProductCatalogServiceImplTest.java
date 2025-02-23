@@ -1,11 +1,16 @@
 package com.sky.protos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.mapper.ProductMapper;
+import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import java.math.BigDecimal;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 class ProductCatalogServiceImplTest {
 
   @Mock private DishService dishService;
+  @Mock ProductMapper productMapper;
 
   @InjectMocks private ProductCatalogServiceImpl productCatalogService;
 
@@ -53,5 +59,36 @@ class ProductCatalogServiceImplTest {
     assertEquals(mockDishVO.getPrice().intValue(), product.getPrice());
 
     verify(dishService, times(1)).getByIdWithFlavor(1L);
+  }
+
+  @Test
+  void listProducts_ShouldReturnProductList_WhenGivenValidPageRequest() {
+    // Arrange
+    ListProductsReq request = ListProductsReq.newBuilder().setPage(1).setPageSize(10).build();
+
+    DishVO dishVO = new DishVO(); // Add necessary fields
+    List<DishVO> dishVOList = List.of(dishVO);
+    PageResult<DishVO> pageResult = new PageResult<>();
+    pageResult.setRecords(dishVOList);
+
+    Product mockProduct = Product.newBuilder().build(); // Add necessary fields
+    List<Product> productList = List.of(mockProduct);
+
+    when(dishService.pageQuery(any(DishPageQueryDTO.class))).thenReturn(pageResult);
+
+    when(productMapper.toProducts(dishVOList)).thenReturn(productList);
+
+    // Act
+    ListProductsResp response = productCatalogService.listProducts(request);
+
+    // Assert
+    assertNotNull(response);
+    assertEquals(1, response.getProductsCount());
+    assertEquals(mockProduct, response.getProducts(0));
+  }
+
+  @Test
+  void getProduct_ShouldReturnProduct_WhenGivenValidId() {
+    // ... existing code ...
   }
 }

@@ -97,7 +97,7 @@ public class DishServiceImpl implements DishService {
         PageInfo<DishVO> pageInfo = new PageInfo<>(dishes);  // Why GPT4o 要在此多此一举？
 
         // Wrap the result in a PageResult object
-        return new PageResult(pageInfo.getTotal(), pageInfo.getList());
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**
