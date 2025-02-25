@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <version>3.1.2</version>
-    </parent> -->
+          <artifactId>spring-boot-starter-parent</artifactId>
+          <groupId>org.springframework.boot</groupId>
+          <version>3.1.2</version>
+      </parent> -->
     <groupId>com.sky</groupId>
     <artifactId>sky-take-out</artifactId>
     <packaging>pom</packaging>
@@ -16,6 +16,7 @@
         <module>sky-common</module>
         <module>sky-pojo</module>
         <module>sky-server</module>
+        <module>proto</module>
     </modules>
     <properties>
         <spring-boot.version>3.4.1</spring-boot.version>
@@ -140,7 +141,7 @@
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+                <artifactId>jjwt-jackson</artifactId>        <!-- or jjwt-gson if Gson is preferred -->
                 <version>${jjwt}</version>
                 <scope>runtime</scope>
             </dependency>
@@ -279,9 +280,9 @@
             <plugin>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-maven-plugin</artifactId>
-                <version>${dubbo.version}</version> <!-- 3.3.0及以上版本 -->
+                <version>${dubbo.version}</version>        <!-- 3.3.0及以上版本 -->
                 <configuration>
-                    <outputDir>build/generated/source/proto/main/java</outputDir> <!-- 参考下文可配置参数 -->
+                    <outputDir>build/generated/source/proto/main/java</outputDir>          <!-- 参考下文可配置参数 -->
                 </configuration>
             </plugin>
         </plugins>
