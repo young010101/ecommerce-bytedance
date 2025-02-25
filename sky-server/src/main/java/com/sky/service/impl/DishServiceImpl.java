@@ -86,7 +86,7 @@ public class DishServiceImpl implements DishService {
      * @return PageResult 分页查询结果
      */
     @Override
-    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+    public PageResult<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         // Set up the pagination parameters (page number and page size)
         PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());  // TODO warning unsolved.
 
@@ -97,7 +97,7 @@ public class DishServiceImpl implements DishService {
         PageInfo<DishVO> pageInfo = new PageInfo<>(dishes);  // Why GPT4o 要在此多此一举？
 
         // Wrap the result in a PageResult object
-        return new PageResult(pageInfo.getTotal(), pageInfo.getList());
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**
