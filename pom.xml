@@ -44,7 +44,7 @@
         <classgraph.version>4.8.179</classgraph.version>
         <javax.annotation.version>3.0.0</javax.annotation.version>
         <wechatpay.version>0.6.0</wechatpay.version>
-        <dubbo.version>3.3.0</dubbo.version>
+        <dubbo.version>3.3.2</dubbo.version>
     </properties>
     <repositories>
         <repository>
