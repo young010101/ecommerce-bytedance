@@ -1,8 +1,9 @@
-package com.sky.mapper;
+package com.sky.rpc.utils.converter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.sky.protos.Product;
+import com.sky.utils.converter.DishToProductConverter;
 import com.sky.vo.DishVO;
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +13,7 @@ class ProductMapperTest {
 
   @Test
   void toProduct_ShouldReturnNull_WhenDishVOIsNull() {
-    assertNull(ProductMapper.toProduct(null));
+    assertNull(DishToProductConverter.toProduct(null));
   }
 
   @Test
@@ -26,7 +27,7 @@ class ProductMapperTest {
     dishVO.setPrice(new BigDecimal("88.88"));
 
     // Act
-    Product product = ProductMapper.toProduct(dishVO);
+    Product product = DishToProductConverter.toProduct(dishVO);
 
     // Assert
     assertNotNull(product);
@@ -39,7 +40,7 @@ class ProductMapperTest {
 
   @Test
   void toProducts_ShouldReturnNull_WhenDishVOListIsNull() {
-    assertNull(ProductMapper.toProducts(null));
+    assertNull(DishToProductConverter.toProducts(null));
   }
 
   @Test
@@ -55,7 +56,7 @@ class ProductMapperTest {
     List<DishVO> dishVOs = List.of(dishVO);
 
     // Act
-    List<Product> products = ProductMapper.toProducts(dishVOs);
+    List<Product> products = DishToProductConverter.toProducts(dishVOs);
 
     // Assert
     assertNotNull(products);

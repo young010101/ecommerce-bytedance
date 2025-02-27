@@ -1,13 +1,14 @@
-package com.sky.protos;
+package com.sky.rpc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import com.sky.dto.DishPageQueryDTO;
-import com.sky.mapper.ProductMapper;
+import com.sky.protos.*;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.utils.converter.DishToProductConverter;
 import com.sky.vo.DishVO;
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,7 +45,7 @@ class ProductCatalogServiceImplTest {
     pageResult.setRecords(dishVOList);
 
     Product mockProduct = Product.newBuilder().build(); // Add necessary fields
-    Product expectedProduct = ProductMapper.toProduct(dishVO);
+    Product expectedProduct = DishToProductConverter.toProduct(dishVO);
 
     when(dishService.pageQuery(any(DishPageQueryDTO.class))).thenReturn(pageResult);
 
@@ -70,7 +71,7 @@ class ProductCatalogServiceImplTest {
 
     when(dishService.getByIdWithFlavor(1L)).thenReturn(mockDishVO);
 
-    Product product = ProductMapper.toProduct(mockDishVO);
+    Product product = DishToProductConverter.toProduct(mockDishVO);
     GetProductReq request = GetProductReq.newBuilder().setId(productId).build();
 
     // Act

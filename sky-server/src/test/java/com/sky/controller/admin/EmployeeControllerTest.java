@@ -12,6 +12,8 @@ import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.interceptor.JwtTokenAdminInterceptor;
 import com.sky.properties.JwtProperties;
+import com.sky.protos.ProductCatalogService;
+import com.sky.protos.UserService;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -29,6 +33,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @Slf4j
 @WebMvcTest(EmployeeController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@Import({JwtProperties.class})
 class EmployeeControllerTest {
 
   @Autowired private MockMvc mockMvc;
@@ -38,6 +44,8 @@ class EmployeeControllerTest {
   @MockitoBean private JwtProperties jwtProperties;
 
   @MockitoBean private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+  @MockitoBean private ProductCatalogService productCatalogService;
+  @MockitoBean private UserService clientUserService;
 
   @Autowired private ObjectMapper objectMapper;
 

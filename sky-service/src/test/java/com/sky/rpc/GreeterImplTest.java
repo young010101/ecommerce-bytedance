@@ -1,8 +1,10 @@
-package com.sky.protos;
+package com.sky.rpc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.sky.protos.GreeterReply;
+import com.sky.protos.GreeterRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
