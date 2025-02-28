@@ -1,15 +1,14 @@
-package com.sky.rpc.utils.converter;
+package com.sky.utils.converter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.sky.protos.Product;
-import com.sky.utils.converter.DishToProductConverter;
 import com.sky.vo.DishVO;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class ProductMapperTest {
+class DishToProductConverterTest {
 
   @Test
   void toProduct_ShouldReturnNull_WhenDishVOIsNull() {
