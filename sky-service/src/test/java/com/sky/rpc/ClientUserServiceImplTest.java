@@ -1,4 +1,4 @@
-package com.sky.protos;
+package com.sky.rpc;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,6 +8,10 @@ import com.sky.constant.PasswordConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
+import com.sky.protos.LoginReq;
+import com.sky.protos.LoginResp;
+import com.sky.protos.RegisterReq;
+import com.sky.protos.RegisterResp;
 import com.sky.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

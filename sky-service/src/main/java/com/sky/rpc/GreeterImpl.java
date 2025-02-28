@@ -1,10 +1,14 @@
-package com.sky.protos;
+package com.sky.rpc;
 
+import com.sky.protos.DubboGreeterTriple;
+import com.sky.protos.GreeterReply;
+import com.sky.protos.GreeterRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 
 /**
  * Implementation of the Greeter service.
+ * Provides simple greeting functionality.
  */
 @Slf4j
 @DubboService

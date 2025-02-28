@@ -1,16 +1,26 @@
-package com.sky.protos;
+package com.sky.rpc;
 
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
+import com.sky.protos.DubboUserServiceTriple;
+import com.sky.protos.LoginResp;
+import com.sky.protos.LoginReq;
+import com.sky.protos.RegisterResp;
+import com.sky.protos.RegisterReq;
 import com.sky.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * RPC implementation of the User Service.
+ * Provides user registration and authentication functionality.
+ */
 @Slf4j
-// @DubboService
 @Service
+@DubboService
 public class ClientUserServiceImpl
         extends DubboUserServiceTriple.UserServiceImplBase {
     /**
@@ -57,6 +67,7 @@ public class ClientUserServiceImpl
         EmployeeLoginDTO employeeLoginDTO = new EmployeeLoginDTO();
         employeeLoginDTO.setUsername(request.getEmail());
         employeeLoginDTO.setPassword(request.getPassword());
+
         Employee employee = employeeService.login(employeeLoginDTO);
         return LoginResp.newBuilder()
                 .setUserId(employee.getId().intValue())

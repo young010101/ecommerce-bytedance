@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ApplicationConfigTest {
+class applicationConfigTest {
 
   @Autowired private Environment environment;
 
