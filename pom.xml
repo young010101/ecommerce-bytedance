@@ -25,7 +25,7 @@
         <lombok>1.18.36</lombok>
         <fastjson>2.0.55</fastjson>
         <commons.lang>3.17.0</commons.lang>
-        <druid>1.2.21</druid>
+        <druid>1.2.24</druid>
         <pagehelper>1.4.7</pagehelper>
         <aliyun.sdk.oss>3.17.4</aliyun.sdk.oss>
         <knife4j>4.4.0</knife4j>
