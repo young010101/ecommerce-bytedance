@@ -13,7 +13,8 @@ import org.apache.ibatis.annotations.Select;
 public interface EmployeeMapper {
 
     /**
-     * 根据用户名查询员工
+     * 根据用户名查询员工.
+     *
      * @param username 用户名
      * @return Employee
      */
@@ -21,31 +22,37 @@ public interface EmployeeMapper {
     Employee getByUsername(String username);
 
     /**
-     * 添加员工
+     * 添加员工.
+     *
      * @param employee 员工
      */
-    @Insert("insert into employee (name, username, password, phone, sex, id_number, create_time, update_time, create_user, update_user) " +
-            "values" +
-            "(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+    @Insert("insert into employee (name, username, password, phone, sex, "
+            + "id_number, create_time, update_time, create_user, update_user) "
+            + "values (#{name}, #{username}, #{password}, #{phone}, #{sex}, "
+            + "#{idNumber}, #{createTime}, #{updateTime}, #{createUser}, "
+            + "#{updateUser})")
     @AutoFill(value = OperationType.INSERT)
     void addEmployee(Employee employee);
 
     /**
-     * 分页查询
+     * 分页查询.
+     *
      * @param employeePageQueryDTO 分页查询条件
      * @return 员工列表
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
     /**
-     * 根据主键动态修改属性
+     * 根据主键动态修改属性.
+     *
      * @param employee 员工
      */
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
     /**
-     * 根据id查询员工
+     * 根据id查询员工.
+     *
      * @param id 员工id
      * @return 员工信息
      */

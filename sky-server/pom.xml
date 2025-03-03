@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>sky-take-out</artifactId>
         <groupId>com.sky</groupId>
         <version>0.0.2-SNAPSHOT</version>
-        <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>spring.ai.example</groupId>
     <artifactId>sky-server</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>spring-ai-demo-tju</name>
+    <!--    <name>sky-spring-ai-demo-tju</name>-->
     <description>Spring AI , getting started example, using Open AI</description>
     <url/>
     <licenses>
@@ -37,6 +37,12 @@
         <dependency>
             <groupId>com.sky</groupId>
             <artifactId>sky-pojo</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sky</groupId>
+            <artifactId>sky-aspect</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
 
@@ -189,10 +195,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.version}</version>
                 <configuration>
                     <excludes>
                         **/com/sky/aspect/**/*.java,

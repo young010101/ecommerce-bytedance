@@ -17,8 +17,10 @@ public interface CategoryMapper {
      * Add a new category.
      * @param category The category to add.
      */
-    @Insert("INSERT INTO category (type, name, sort, status, create_time, update_time, create_user, update_user) " +
-            "VALUES (#{type}, #{name}, #{sort}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+    @Insert("INSERT INTO category (type, name, sort, status, create_time, "
+            + "update_time, create_user, update_user) "
+            + "VALUES (#{type}, #{name}, #{sort}, #{status}, #{createTime}, "
+            + "#{updateTime}, #{createUser}, #{updateUser})")
     @AutoFill(value = OperationType.INSERT)
     void addCategory(Category category);
 
@@ -31,7 +33,7 @@ public interface CategoryMapper {
 
 
     /**
-     * update category by id
+     * update category by id.
      * @param category The category to update.
      */
     @AutoFill(value = OperationType.UPDATE)
