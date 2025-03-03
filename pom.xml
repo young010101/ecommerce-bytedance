@@ -18,11 +18,13 @@
         <module>sky-api</module>
         <module>sky-service</module>
         <module>sky-server</module>
+        <module>sky-eshop</module>
     </modules>
     <properties>
         <spring-boot.version>3.4.1</spring-boot.version>
         <mybatis.spring>3.0.4</mybatis.spring>
         <lombok>1.18.36</lombok>
+        <mybatis-plus.version>3.5.10.1</mybatis-plus.version>
         <fastjson>2.0.55</fastjson>
         <commons.lang>3.17.0</commons.lang>
         <druid>1.2.21</druid>
@@ -79,6 +81,20 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.spring}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.34</version>
             </dependency>
 
             <dependency>
