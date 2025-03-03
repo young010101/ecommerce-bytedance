@@ -19,6 +19,7 @@
         <module>sky-service</module>
         <module>sky-server</module>
         <module>sky-eshop</module>
+        <module>sky-aspect</module>
     </modules>
     <properties>
         <spring-boot.version>3.4.1</spring-boot.version>
