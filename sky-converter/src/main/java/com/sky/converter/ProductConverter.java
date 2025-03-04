@@ -7,6 +7,8 @@ import com.sky.protos.ListProductsReq;
 import com.sky.protos.ListProductsResp;
 import com.sky.vo.ListProductsRespVO;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
+import java.math.BigDecimal;
 
 @Mapper
 public interface ProductMapper {
@@ -34,4 +36,43 @@ public interface ProductMapper {
      * @return 响应VO
      */
     ListProductsRespVO toProductRespVO(ListProductsResp resp);
+}
+
+@Component
+public class ProductConverter {
+    /**
+     * 将 Product 转换为 ProductProto.
+     *
+     * @param entity 商品实体
+     * @return 商品Proto
+     */
+    public ProductProto toProto(Product entity) {
+        if (entity == null) {
+            return null;
+        }
+        return ProductProto.newBuilder()
+                .setId(entity.getId())
+                .setName(entity.getName())
+                .setPrice(entity.getPrice().doubleValue())
+                .setStock(entity.getStock())
+                .build();
+    }
+
+    /**
+     * 将 ProductProto 转换为 Product.
+     *
+     * @param proto 商品Proto
+     * @return 商品实体
+     */
+    public Product toEntity(ProductProto proto) {
+        if (proto == null) {
+            return null;
+        }
+        Product entity = new Product();
+        entity.setId(proto.getId());
+        entity.setName(proto.getName());
+        entity.setPrice(BigDecimal.valueOf(proto.getPrice()));
+        entity.setStock(proto.getStock());
+        return entity;
+    }
 }

@@ -15,7 +15,7 @@ import lombok.ToString;
  * </p>
  *
  * @author Cheng Yang
- * @since 2025-03-03
+ * @since 2025-03-04
  */
 @Getter
 @Setter
@@ -73,6 +73,12 @@ public class Product implements Serializable {
      */
     @Schema(description = "销量")
     private Long sales;
+
+    /**
+     * 分类ID
+     */
+    @Schema(description = "分类ID")
+    private Long categoriesId;
 
     /**
      * 创建时间

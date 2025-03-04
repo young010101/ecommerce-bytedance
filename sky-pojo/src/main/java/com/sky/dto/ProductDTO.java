@@ -13,7 +13,7 @@ public class ProductDTO implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private String image;
+    private String picture;
     private BigDecimal price;
 
     private List<String> categories = new ArrayList<>();

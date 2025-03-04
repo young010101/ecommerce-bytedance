@@ -13,7 +13,8 @@ public final class CodeGenerator {
     /**
      * Database URL for connection.
      */
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/e_shop";
+    private static final String DB_URL =
+            "jdbc:mysql://localhost:3306/sky_take_out";
 
     /**
      * Database username.
@@ -63,7 +64,7 @@ public final class CodeGenerator {
      */
     private static void generateCode() {
         final String outputDir = System.getProperty("user.dir")
-            + "/sky-eshop/src/main/";
+            + "/tmp/sky-eshop/src/main/";
         FastAutoGenerator.create(DB_URL, DB_USERNAME, DB_PASSWORD)
                 // Global configuration
                 .globalConfig(builder -> builder
