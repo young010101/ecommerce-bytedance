@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class ListProductsReqDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private int page;
-    private int pageSize;
+    private long pageSize;
     private String categoryName;
 }

@@ -1,5 +1,9 @@
 package com.sky.rpc;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.sky.dto.ListProductsReqDTO;
 import com.sky.dto.ProductDTO;
 import com.sky.entity.Category;
 import com.sky.mapper.ProductMapper;
@@ -9,11 +13,8 @@ import com.sky.protos.ListProductsResp;
 import com.sky.protos.Product;
 import com.sky.protos.GetProductReq;
 import com.sky.protos.GetProductResp;
-import com.sky.utils.converter.DishToProductConverter;
-import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
-import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
@@ -54,17 +55,51 @@ public class ProductCatalogServiceImpl
     @Override
     public ListProductsResp listProducts(final ListProductsReq request) {
         log.info("Listing products with request: {}", request);
-        DishPageQueryDTO dishPageQueryDTO = new DishPageQueryDTO();
-        dishPageQueryDTO.setPage(request.getPage());
-        dishPageQueryDTO.setPageSize((int) request.getPageSize());
+        ListProductsReqDTO listProductsReqDTO = new ListProductsReqDTO();
+        BeanUtils.copyProperties(request, listProductsReqDTO);
 
-        PageResult<DishVO> pageResult =
-                dishService.pageQuery(dishPageQueryDTO);
-        List<Product> products =
-                DishToProductConverter.toProducts(pageResult.getRecords());
+        PageHelper.startPage(request.getPage(), (int) request.getPageSize());
+        Page<ProductDTO> getProductRespVOS =
+                productMapper.pageQuery(listProductsReqDTO);
+
+        PageInfo<ProductDTO> pageInfo = new PageInfo<>(getProductRespVOS);
+
+        PageResult<ProductDTO> pageResult =
+                new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
+        List<ProductDTO> products = pageResult.getRecords();
 
         return ListProductsResp.newBuilder()
-                .addAllProducts(products)
+                .addAllProducts(convertToProducts(products))
+                .build();
+    }
+
+    /**
+     * Convert productDTO to product.
+     *
+     * @param dtoList productDTO list
+     * @return product list
+     */
+    private List<Product> convertToProducts(final List<ProductDTO> dtoList) {
+        return dtoList.stream()
+                .map(this::convertToProduct)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Convert productDTO to product.
+     *
+     * @param dto productDTO
+     * @return product
+     */
+    private Product convertToProduct(final ProductDTO dto) {
+        return Product.newBuilder()
+                .setId(dto.getId().intValue())
+                .setName(dto.getName())
+                .setDescription(dto.getDescription())
+                .setPicture(dto.getPicture())
+                .setPrice(dto.getPrice().floatValue())
+                .addAllCategories(dto.getCategories()
+                        != null ? dto.getCategories() : Collections.emptyList())
                 .build();
     }
 
@@ -77,9 +112,6 @@ public class ProductCatalogServiceImpl
     @Override
     public GetProductResp getProduct(final GetProductReq request) {
         log.info("Dubbo rpc Getting product with id: {}", request.getId());
-//        DishVO dishVO = dishService.getByIdWithFlavor((long) request.getId());
-//        Product product = DishToProductConverter.toProduct(dishVO);
-//        return GetProductResp.newBuilder().setProduct(product).build();
         com.sky.entity.Product product = productMapper.getById(request.getId());
         ProductDTO productDTO = new ProductDTO();
         BeanUtils.copyProperties(product, productDTO);
