@@ -4,6 +4,7 @@ import com.sky.entity.DishFlavor;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface DishFlavorMapper {
      *
      * @param flavors The dish flavors to insert.
      */
-    void insertBatch(List<DishFlavor> flavors);
+    void insertBatch(@Param("flavors") List<DishFlavor> flavors);
 
     /**
      * Get flavors by dish id.
