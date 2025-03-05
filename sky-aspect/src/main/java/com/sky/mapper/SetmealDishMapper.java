@@ -3,6 +3,7 @@ package com.sky.mapper;
 import com.sky.entity.SetmealDish;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface SetmealDishMapper {
      *
      * @param setmealDishes 套餐菜品关系列表
      */
-    void insertBatch(List<SetmealDish> setmealDishes);
+    void insertBatch(@Param("setmealDishes") List<SetmealDish> setmealDishes);
 
     /**
      * 根据套餐ID查询套餐菜品关系.
