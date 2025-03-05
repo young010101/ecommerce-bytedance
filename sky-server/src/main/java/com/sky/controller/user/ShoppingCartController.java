@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,5 +51,16 @@ public class ShoppingCartController {
     @Operation(summary = "查看购物车")
     public Result<List<ShoppingCart>> list(){
         return Result.success(shoppingCartService.showShoppingCart());
+    }
+
+    /**
+     * 清空购物车商品.
+     * @return 结果
+     */
+    @DeleteMapping("/clean")
+    @Operation(summary = "清空购物车商品")
+    public Result<String> clean(){
+        shoppingCartService.cleanShoppingCart();
+        return Result.success();
     }
 }
