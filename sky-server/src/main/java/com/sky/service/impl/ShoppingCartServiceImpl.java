@@ -29,9 +29,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private SetmealMapper setmealMapper;
 
     /**
-     * 添加购物车
+     * 添加购物车.
      *
-     * @param shoppingCartDTO
+     * @param shoppingCartDTO 购物车 DTO
      */
     public void addShoppingCart(ShoppingCartDTO shoppingCartDTO) {
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -70,5 +70,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartMapper.insert(shoppingCart);
             log.info("添加购物车成功: {}", shoppingCart);
         }
+    }
+
+    /**
+     * 查看购物车.
+     * @return 购物车列表
+     */
+    public List<ShoppingCart> showShoppingCart() {
+        return shoppingCartMapper.list(ShoppingCart.
+                                       builder().
+                                       userId(BaseContext.getCurrentId()).
+                                       build());
     }
 }
