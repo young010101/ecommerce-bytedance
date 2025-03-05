@@ -4,6 +4,7 @@ import com.sky.constant.MessageConstant;
 import com.sky.exception.BaseException;
 import com.sky.result.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -15,25 +16,29 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @Value("${spring.profiles.active:prod}")
+    private String activeProfile;
 
     /**
      * 捕获业务异常
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler
-    public Result exceptionHandler(BaseException ex){
+    public Result exceptionHandler(BaseException ex) {
         log.error("异常信息：{}", ex.getMessage());
         return Result.error(ex.getMessage());
     }
 
     /**
      * 捕获SQLIntegrityConstraintViolationException异常
+     *
      * @param ex 异常对象
      * @return Result
      */
     @ExceptionHandler
-    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex) {
         // Duplicate entry 'wangwu' for key 'employee.idx_username'
         String message = ex.getMessage();
         if (message.contains("Duplicate entry")) {
@@ -43,6 +48,12 @@ public class GlobalExceptionHandler {
             log.error("SQL异常信息：{}", ex.getMessage());
             return Result.error(msg);
         } else {
+            log.error("未知异常：", ex);
+
+            // 开发环境返回详细错误信息
+            if ("dev".equals(activeProfile)) {
+                return Result.error(ex.getMessage());
+            }
             return Result.error(MessageConstant.UNKNOWN_ERROR);
         }
     }
